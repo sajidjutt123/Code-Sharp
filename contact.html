@@ -53,14 +53,19 @@
 
         /* === NAVIGATION === */
         .navbar {
-            background-color: var(--bg-light);
-            box-shadow: var(--shadow);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out; /* Scroll ke liye added */
-        }
+  overflow-x: auto;     /* horizontal scroll allow karega */
+  white-space: nowrap;  /* links ko ek line me rakhega */
+  scrollbar-width: none; /* optional: scrollbar hide karne ke liye (Firefox) */
+}
+
+.navbar::-webkit-scrollbar {
+  display: none; /* optional: scrollbar hide for Chrome/Safari */
+}
+
+.navbar a {
+  display: inline-block; /* taake saare links horizontally align rahein */
+}
+
 
         .navbar-hidden {
             transform: translateY(-100%); /* Scroll ke liye added */

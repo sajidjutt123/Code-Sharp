@@ -44,14 +44,19 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         .navbar {
-            background-color: var(--bg-light);
-            box-shadow: var(--shadow);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out; /* Header scroll effect ke liye */
-        }
+  overflow-x: auto;     /* horizontal scroll allow karega */
+  white-space: nowrap;  /* links ko ek line me rakhega */
+  scrollbar-width: none; /* optional: scrollbar hide karne ke liye (Firefox) */
+}
+
+.navbar::-webkit-scrollbar {
+  display: none; /* optional: scrollbar hide for Chrome/Safari */
+}
+
+.navbar a {
+  display: inline-block; /* taake saare links horizontally align rahein */
+}
+
 
         .navbar.hide {
             transform: translateY(-100%); /* Header ko upar hide karega */

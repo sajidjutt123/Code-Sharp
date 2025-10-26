@@ -51,16 +51,26 @@
 
     /* Navbar */
     .navbar {
-      background-color: var(--bg-light);
-      box-shadow: var(--shadow);
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-    }
+  overflow-x: auto;     /* horizontal scroll allow karega */
+  white-space: nowrap;  /* links ko ek line me rakhega */
+  scrollbar-width: none; /* optional: scrollbar hide karne ke liye (Firefox) */
+}
+
+.navbar::-webkit-scrollbar {
+  display: none; /* optional: scrollbar hide for Chrome/Safari */
+}
+
+.navbar a {
+  display: inline-block; /* taake saare links horizontally align rahein */
+}
+
 
     body.dark-mode .navbar {
       background-color: var(--bg-dark);
+    }
+
+    .navbar-hidden {
+      transform: translateY(-100%); /* Scroll ke liye added */
     }
 
     .nav-container {
@@ -358,12 +368,17 @@
         <div class="team-card">
           <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Javed Musrani">
           <h3>Javed Musrani</h3>
-          <p>Co-Developer & Project Partner. Javed plays a key role in shaping CodeSharp’s structure, design, and problem sets to ensure quality learning for all users.</p>
+          <p>Co-Developer & Project Partner. Javed plays a key role in shaping CodeSharp's structure, design, and problem sets to ensure quality learning for all users.</p>
         </div>
 <div class="team-card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Javed Musrani">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Eusha Tahir">
           <h3>Eusha Tahir</h3>
-          <p>Co-Developer & Project Partner. Eusha also plays a key role in shaping CodeSharp’s structure, design, and problem sets to ensure quality learning for all users.</p>
+          <p>Co-Developer & Project Partner. Eusha also plays a key role in shaping CodeSharp's structure, design, and problem sets to ensure quality learning for all users.</p>
+        </div>
+<div class="team-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Aadil Faisal">
+          <h3>Aadil Faisal</h3>
+          <p>Co-Developer & Project Partner. Eusha also plays a key role in shaping CodeSharp's structure, design, and problem sets to ensure quality learning for all users.</p>
         </div>
       </div>
     </div>
@@ -405,6 +420,24 @@
         themeIcon.className = 'fas fa-moon';
         localStorage.setItem('theme', 'light');
       }
+    });
+
+    // Header Scroll Hide/Show - Yeh add kiya gaya hai
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scroll down - header hide karein
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scroll up - header show karein
+            navbar.classList.remove('navbar-hidden');
+        }
+        
+        lastScrollTop = scrollTop;
     });
   </script>
 </body>
