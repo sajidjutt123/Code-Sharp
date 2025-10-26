@@ -59,6 +59,11 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            transition: transform 0.3s ease-in-out; /* Scroll ke liye added */
+        }
+
+        .navbar-hidden {
+            transform: translateY(-100%); /* Scroll ke liye added */
         }
 
         body.dark-mode .navbar {
@@ -760,15 +765,7 @@
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="practice.html">Practice Problems</a></li>
-                        <li><a href="solutions.html">Solutions</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                    </ul>
-                </div>
+                
                 <div class="footer-section">
                     <h4>Learning Paths</h4>
                     <ul>
@@ -872,6 +869,24 @@
                     });
                 }
             });
+        });
+
+        // Header Scroll Hide/Show Functionality
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scroll down - header hide karein
+                navbar.classList.add('navbar-hidden');
+            } else {
+                // Scroll up - header show karein
+                navbar.classList.remove('navbar-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
         });
     </script>
 </body>

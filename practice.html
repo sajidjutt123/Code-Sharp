@@ -50,6 +50,11 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            transition: transform 0.3s ease-in-out; /* Header scroll effect ke liye */
+        }
+
+        .navbar.hide {
+            transform: translateY(-100%); /* Header ko upar hide karega */
         }
 
         body.dark-mode .navbar { background-color: var(--bg-dark); }
@@ -212,6 +217,23 @@ int main() {
     </footer>
 
     <script>
+        // Header Scroll Effect
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scroll down - hide header
+                navbar.classList.add('hide');
+            } else {
+                // Scroll up - show header
+                navbar.classList.remove('hide');
+            }
+            lastScrollTop = scrollTop;
+        });
+
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
         const savedTheme = localStorage.getItem('theme') || 'light';

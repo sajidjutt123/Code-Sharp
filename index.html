@@ -59,6 +59,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            transition: transform 0.3s ease-in-out; /* ADDED: For smooth hide/show */
         }
 
         body.dark-mode .navbar {
@@ -689,15 +690,6 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="practice.html">Practice Problems</a></li>
-                        <li><a href="solutions.html">Solutions</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
                     <h4>Learning Paths</h4>
                     <ul>
                         <li><a href="cpp-learning.html">C++ Programming</a></li>
@@ -763,6 +755,25 @@
                     });
                 }
             });
+        });
+
+        // Header Scroll Behavior - ADDED CODE
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        const scrollThreshold = 50; // Minimum scroll before hiding header
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                // Scrolling down - hide navbar
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up - show navbar
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
         });
     </script>
 </body>

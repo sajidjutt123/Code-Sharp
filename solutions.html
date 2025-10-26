@@ -58,6 +58,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            transition: transform 0.3s ease-in-out; /* ADDED: For smooth hide/show */
         }
 
         body.dark-mode .navbar {
@@ -783,15 +784,7 @@
                         <a href="#"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="practice.html">Practice Problems</a></li>
-                        <li><a href="solutions.html">Solutions</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                    </ul>
-                </div>
+                
                 <div class="footer-section">
                     <h4>Learning Paths</h4>
                     <ul>
@@ -2952,7 +2945,7 @@ int main(){ int r,c; cin>>r>>c; int mat[10][10],res[10][10]; for(int i=0;i<r;i++
             "Matrix Diagonal Sum": {
                 code: `#include<iostream>
 using namespace std;
-int main(){ int n; cin>>n; int mat[n][n]; for(int i=0;i<n;i++) for(int j=0;j<n;j++) cin>>mat[i][j]; int sum=0; for(int i=0;i<n;i++) sum+=mat[i][i]; cout<<sum<<endl; return 0;}`,
+int main(){ int n; cin>>n; int mat[n][n]; for(int i=0;i<n;i++) for(int j=0;j<n;j++) cin >> mat[i][j]; int sum=0; for(int i=0;i<n;i++) sum+=mat[i][i]; cout<<sum<<endl; return 0;}`,
                 explanation: "Find the sum of diagonal elements of a matrix.",
                 difficulty: "easy",
                 category: "array"
@@ -3419,6 +3412,25 @@ int main(){ int l,r; cin>>l>>r; checkRange(l,r); return 0;}`,
             if (e.key === 'Enter') {
                 searchSolutions();
             }
+        });
+
+        // ADDED: Header Scroll Behavior
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        const scrollThreshold = 50;
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                // Scrolling down - hide navbar
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up - show navbar
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
         });
     </script>
 </body>
