@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - CodeSharp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Import global styles and variables */
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --secondary: #f59e0b;
+      --accent: #10b981;
+      --text-dark: #1f2937;
+      --text-light: #f9fafb;
+      --bg-light: #ffffff;
+      --bg-light-secondary: #f8fafc;
+      --bg-dark: #0f172a;
+      --bg-dark-secondary: #1e293b;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--bg-light);
+      box-shadow: var(--shadow);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    body.dark-mode .navbar {
+      background-color: var(--bg-dark);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: inherit;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* About Section */
+    .about {
+      padding: 80px 0;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .about-section {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-section h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-section p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* Team Section */
+    .team {
+      background-color: var(--bg-light-secondary);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    body.dark-mode .team {
+      background-color: var(--bg-dark-secondary);
+    }
+
+    .team h2 {
+      color: var(--primary);
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      justify-items: center;
+    }
+
+    .team-card {
+      background-color: var(--card-light);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      max-width: 300px;
+    }
+
+    body.dark-mode .team-card {
+      background-color: var(--card-dark);
+    }
+
+    .team-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      border: 3px solid var(--primary);
+      object-fit: cover;
+    }
+
+    .team-card h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-card p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .cta h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background-color: var(--secondary);
+      color: var(--text-dark);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      padding: 3rem 0 1rem;
+    }
+
+    body.dark-mode .footer {
+      background-color: var(--bg-dark);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .about-section p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-container">
+        <a href="index.html" class="logo"><i class="fas fa-code"></i> CodeSharp</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="solutions.html">Practice Problems</a>
+          <a href="practice.html">Compiler</a>
+          <a href="cpp-learning.html">Learn C++</a>
+          <a href="html-learning.html">Learn HTML</a>
+          <a href="about.html" class="active">About Us</a>
+          <a href="contact.html">Contact</a>
+          <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>About CodeSharp</h1>
+      <p>Empowering students to learn programming through structured lessons and practical coding experience.</p>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-section">
+          <h2>Our Story</h2>
+          <p>
+            CodeSharp started as a small idea by two passionate learners — Sajid (Jutt Boys) and Javed Musrani — who wanted to make programming simple, engaging, and practical for everyone.
+            What began as a few coding notes evolved into a full-fledged learning platform designed to help students master programming through real-world problems and hands-on challenges.
+          </p>
+        </div>
+        <div class="about-section">
+          <h2>Our Mission</h2>
+          <p>
+            Our mission is to make learning to code accessible, fun, and result-oriented. We believe that the best way to learn programming is by writing code — solving, testing, and improving every step of the way.
+            CodeSharp provides step-by-step tutorials, problem-solving exercises, and explanations that help students truly understand each concept.
+          </p>
+        </div>
+        <div class="about-section">
+          <h2>What We Offer</h2>
+          <p>
+            CodeSharp currently offers in-depth learning paths for <strong>C++</strong> and <strong>HTML</strong>, with more languages like <strong>Python</strong> and <strong>JavaScript</strong> coming soon.
+            Our platform includes 200+ coding problems, interactive lessons, and a built-in compiler to help you practice and learn effectively.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team">
+    <div class="container">
+      <h2>Meet the Developers</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Sajid">
+          <h3>Sajid (Jutt Boys)</h3>
+          <p>Founder & Lead Developer of CodeSharp. Sajid is passionate about web development and programming education. He focuses on creating user-friendly, powerful tools for learners.</p>
+        </div>
+        <div class="team-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Javed Musrani">
+          <h3>Javed Musrani</h3>
+          <p>Co-Developer & Project Partner. Javed plays a key role in shaping CodeSharp’s structure, design, and problem sets to ensure quality learning for all users.</p>
+        </div>
+<div class="team-card">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Javed Musrani">
+          <h3>Eusha Tahir</h3>
+          <p>Co-Developer & Project Partner. Eusha also plays a key role in shaping CodeSharp’s structure, design, and problem sets to ensure quality learning for all users.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Join the CodeSharp Community</h2>
+      <p>Start your programming journey today and become part of a growing network of learners who code with confidence.</p>
+      <a href="practice.html" class="btn btn-secondary"><i class="fas fa-code"></i> Start Practicing</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2025 CodeSharp. All rights reserved. ❤️FAST NUCES</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      themeIcon.className = 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>

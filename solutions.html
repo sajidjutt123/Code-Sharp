@@ -1,0 +1,3425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete C++ Solutions | CodeSharp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES === */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #f9fafb;
+            --bg-light: #ffffff;
+            --bg-light-secondary: #f8fafc;
+            --bg-dark: #0f172a;
+            --bg-dark-secondary: #1e293b;
+            --card-light: #ffffff;
+            --card-dark: #1e293b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === NAVIGATION === */
+        .navbar {
+            background-color: var(--bg-light);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        body.dark-mode .navbar {
+            background-color: var(--bg-dark);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: inherit;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        /* === PAGE HEADER === */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* === SOLUTIONS SECTION === */
+        .solutions-section {
+            padding: 60px 0;
+        }
+
+        .search-container {
+            background-color: var(--bg-light-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        body.dark-mode .search-container {
+            background-color: var(--bg-dark-secondary);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .search-input {
+            background-color: var(--bg-dark);
+            border-color: #374151;
+            color: var(--text-light);
+        }
+
+        .search-btn {
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 10px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        body.dark-mode .filter-select {
+            background-color: var(--bg-dark);
+            border-color: #374151;
+            color: var(--text-light);
+        }
+
+        /* === SOLUTIONS GRID === */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        .solution-card {
+            background-color: var(--card-light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .solution-card {
+            background-color: var(--card-dark);
+            border-color: #374151;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .solution-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .problem-info {
+            flex: 1;
+        }
+
+        .problem-number {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-card h3 {
+            color: inherit;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        .difficulty-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .difficulty-badge.easy {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .difficulty-badge.medium {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty-badge.hard {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        body.dark-mode .difficulty-badge.easy {
+            background-color: #166534;
+            color: #dcfce7;
+        }
+
+        body.dark-mode .difficulty-badge.medium {
+            background-color: #92400e;
+            color: #fef3c7;
+        }
+
+        body.dark-mode .difficulty-badge.hard {
+            background-color: #991b1b;
+            color: #fee2e2;
+        }
+
+        /* === EXPLANATION SECTION === */
+        .explanation {
+            background-color: var(--bg-light-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        body.dark-mode .explanation {
+            background-color: var(--bg-dark-secondary);
+        }
+
+        .explanation h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .explanation p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* === CODE PREVIEW === */
+        .code-preview {
+            background-color: #1f2937;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid #4b5563;
+            color: #9ca3af;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background-color: #374151;
+            color: white;
+        }
+
+        .code-line {
+            color: #e5e7eb;
+            margin-bottom: 2px;
+            white-space: pre;
+        }
+
+        .code-comment {
+            color: #6b7280;
+        }
+
+        .code-keyword {
+            color: #f472b6;
+        }
+
+        .code-function {
+            color: #60a5fa;
+        }
+
+        .code-string {
+            color: #34d399;
+        }
+
+        .code-number {
+            color: #fbbf24;
+        }
+
+        /* === SOLUTION ACTIONS === */
+        .solution-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        body.dark-mode .btn-secondary {
+            color: var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #6b7280;
+            color: #6b7280;
+        }
+
+        .btn-outline:hover {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        /* === LOADING & MESSAGES === */
+        #loadingSpinner {
+            display: none;
+            margin: 2rem auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #noResults {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        #noResults i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #9ca3af;
+        }
+
+        /* === PAGINATION === */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            padding: 10px 16px;
+            border: 2px solid #e5e7eb;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .page-btn {
+            background-color: var(--bg-dark);
+            border-color: #374151;
+            color: var(--text-light);
+        }
+
+        .page-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-btn:hover:not(.active) {
+            background-color: var(--bg-light-secondary);
+        }
+
+        body.dark-mode .page-btn:hover:not(.active) {
+            background-color: var(--bg-dark-secondary);
+        }
+
+        /* === FOOTER === */
+        .footer {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        body.dark-mode .footer {
+            background-color: var(--bg-dark);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .footer-bottom {
+            border-top-color: #374151;
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-header {
+                padding: 100px 0 40px;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .stats {
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: auto;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .solution-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .solution-card {
+                padding: 1.5rem;
+            }
+
+            .filter-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-code"></i>
+                    CodeSharp
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="solutions.html" class="active">Practice Problems</a>
+                    <a href="practice.html">Compiler</a>
+                    <a href="cpp-learning.html">Learn C++</a>
+                    <a href="html-learning.html">Learn HTML </a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Complete C++ Solutions</h1>
+            <p>200+ programming problems with detailed explanations and code solutions</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Problems Solved</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Code Examples</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions-section">
+        <div class="container">
+            <!-- Search and Filters -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="searchInput" 
+                           placeholder="Search solutions... (e.g., 'Fibonacci', 'Palindrome', 'Array')">
+                    <button class="search-btn" onclick="searchSolutions()">
+                        <i class="fas fa-search"></i> Search Solutions
+                    </button>
+                </div>
+                <div class="filter-options">
+                    <select class="filter-select" id="difficultyFilter" onchange="filterSolutions()">
+                        <option value="">All Difficulty Levels</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <select class="filter-select" id="categoryFilter" onchange="filterSolutions()">
+                        <option value="">All Categories</option>
+                        <option value="number">Number Problems</option>
+                        <option value="array">Array Problems</option>
+                        <option value="string">String Problems</option>
+                        <option value="recursion">Recursion</option>
+                        <option value="pattern">Patterns</option>
+                        <option value="math">Mathematics</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner"></div>
+
+            <!-- No Results Message -->
+            <div id="noResults">
+                <i class="fas fa-search"></i>
+                <h3>No solutions found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
+
+            <!-- Solutions Grid -->
+            <div class="solutions-grid" id="solutionsList"></div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CodeSharp</h3>
+                    <p>Master programming with comprehensive lessons and practice problems. Learn by doing with real coding challenges.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="practice.html">Practice Problems</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Learning Paths</h4>
+                    <ul>
+                        <li><a href="cpp-learning.html">C++ Programming</a></li>
+                        <li><a href="html-learning.html">HTML Learning</a></li>
+                        <li><a href="#">JavaScript Coming Soon</a></li>
+                        <li><a href="#">Python Coming Soon</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@codesharp.com</li>
+                        <li><i class="fas fa-phone"></i> +92 300 1234567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Karachi, Pakistan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeSharp. All rights reserved.  ❤️ FAST NUCES</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // COMPLETE SOLUTIONS DATA - 200+ Problems
+        const solutions = {
+            "Disarium Number": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    int num, temp, sum=0, count=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    temp = num;
+    while(temp > 0){ count++; temp /= 10; }
+    temp = num; sum = 0;
+    while(temp > 0){ digit = temp % 10; sum += pow(digit,count--); temp /= 10; }
+    cout << (sum==num ? "Disarium" : "Not Disarium") << " Number";
+    return 0;
+}`,
+                explanation: "A Disarium number is a number in which the sum of its digits powered with their respective positions equals the number itself. Example: 135 → 1^1 + 3^2 + 5^3 = 135.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Armstrong Number": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    int num, temp, sum=0, count=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    temp = num; while(temp > 0){ count++; temp /= 10; }
+    temp = num; sum = 0;
+    while(temp > 0){ digit = temp % 10; sum += pow(digit,count--); temp /= 10; }
+    cout << (sum==num ? "Armstrong" : "Not Armstrong") << " Number";
+    return 0;
+}`,
+                explanation: "An Armstrong number is a number that is equal to the sum of its own digits raised to the power of the number of digits. Example: 153 → 1^3 + 5^3 + 3^3 = 153.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Perfect Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0;
+    cout << "Enter a number: "; cin >> num;
+    for(int i=1;i<num;i++) if(num % i == 0) sum += i;
+    cout << (sum==num ? "Perfect" : "Not Perfect") << " Number";
+    return 0;
+}`,
+                explanation: "A Perfect number is equal to the sum of its positive divisors, excluding itself. Example: 6 → 1 + 2 + 3 = 6.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Strong Number": {
+                code: `#include <iostream>
+using namespace std;
+int factorial(int n){ int f=1; for(int i=1;i<=n;i++) f*=i; return f; }
+int main() {
+    int num, temp, sum=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    temp = num; sum = 0;
+    while(temp > 0){ digit = temp % 10; sum += factorial(digit); temp /= 10; }
+    cout << (sum==num ? "Strong" : "Not Strong") << " Number";
+    return 0;
+}`,
+                explanation: "A Strong number is a number whose sum of the factorial of digits equals the number itself. Example: 145 → 1! + 4! + 5! = 145.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Palindrome Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, temp, rev=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    temp = num;
+    while(temp > 0){ digit = temp % 10; rev = rev*10 + digit; temp /= 10; }
+    cout << (rev==num ? "Palindrome" : "Not Palindrome") << " Number";
+    return 0;
+}`,
+                explanation: "A Palindrome number reads the same forward and backward. Example: 121, 1331.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Prime Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num; bool isPrime=true;
+    cout << "Enter a number: "; cin >> num;
+    if(num<2) isPrime=false;
+    for(int i=2;i*i<=num;i++){ if(num % i == 0){ isPrime=false; break; } }
+    cout << (isPrime ? "Prime" : "Not Prime") << " Number";
+    return 0;
+}`,
+                explanation: "A Prime number is greater than 1 and has no divisors other than 1 and itself. Example: 2, 3, 5, 7.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Composite Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num; bool isComposite=false;
+    cout << "Enter a number: "; cin >> num;
+    if(num>1){
+        for(int i=2;i*i<=num;i++){ if(num % i == 0){ isComposite=true; break; } }
+    }
+    cout << (isComposite ? "Composite" : "Not Composite") << " Number";
+    return 0;
+}`,
+                explanation: "A Composite number has more than two positive divisors. Example: 4, 6, 8, 9.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Harshad Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0, temp, digit;
+    cout << "Enter a number: "; cin >> num;
+    temp = num;
+    while(temp>0){ digit = temp % 10; sum += digit; temp /= 10; }
+    cout << (num % sum == 0 ? "Harshad" : "Not Harshad") << " Number";
+    return 0;
+}`,
+                explanation: "A Harshad number is divisible by the sum of its digits. Example: 18 → 1+8=9, 18 is divisible by 9.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Abundant Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0;
+    cout << "Enter a number: "; cin >> num;
+    for(int i=1;i<num;i++) if(num % i == 0) sum += i;
+    cout << (sum>num ? "Abundant" : "Not Abundant") << " Number";
+    return 0;
+}`,
+                explanation: "An Abundant number is a number where the sum of its proper divisors is greater than the number itself. Example: 12 → 1+2+3+4+6=16 > 12.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Deficient Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0;
+    cout << "Enter a number: "; cin >> num;
+    for(int i=1;i<num;i++) if(num % i == 0) sum += i;
+    cout << (sum<num ? "Deficient" : "Not Deficient") << " Number";
+    return 0;
+}`,
+                explanation: "A Deficient number is a number where the sum of its proper divisors is less than the number itself. Example: 8 → 1+2+4=7 < 8.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Automorphic Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sq;
+    cout << "Enter a number: "; cin >> num;
+    sq = num * num;
+    int n = num, temp = sq;
+    while(n>0){ if(n%10 != temp%10){ cout << "Not Automorphic"; return 0;} n/=10; temp/=10;}
+    cout << "Automorphic Number"; return 0;
+}`,
+                explanation: "An Automorphic number is a number whose square ends with the number itself. Example: 25 → 25^2=625.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Spy Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, prod=1, sum=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    int temp=num;
+    while(temp>0){ digit=temp%10; sum+=digit; prod*=digit; temp/=10;}
+    cout << (sum==prod ? "Spy" : "Not Spy") << " Number"; return 0;
+}`,
+                explanation: "A Spy number is a number where the sum of digits equals the product of digits. Example: 123 → 1+2+3=6, 1*2*3=6.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Magic Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0, temp;
+    cout << "Enter a number: "; cin >> num;
+    temp=num;
+    while(temp>0){ sum += temp%10; temp/=10; if(temp==0 && sum>9){ temp=sum; sum=0;} }
+    cout << (sum==1 ? "Magic" : "Not Magic") << " Number"; return 0;
+}`,
+                explanation: "A Magic number is a number where repeated sum of its digits leads to 1. Example: 19 → 1+9=10 → 1+0=1.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Neon Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sq, sum=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    sq = num * num;
+    while(sq>0){ digit=sq%10; sum+=digit; sq/=10; }
+    cout << (sum==num ? "Neon" : "Not Neon") << " Number"; return 0;
+}`,
+                explanation: "A Neon number is a number where the sum of digits of its square equals the number. Example: 9 → 9^2=81, 8+1=9.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Happy Number": {
+                code: `#include <iostream>
+using namespace std;
+int sumDigits(int n){ int sum=0; while(n>0){ sum+=n%10; n/=10; } return sum;}
+int main() {
+    int num;
+    cout << "Enter a number: "; cin >> num;
+    int slow=num, fast=num;
+    do{ slow=sumDigits(slow); fast=sumDigits(sumDigits(fast)); }while(slow!=fast);
+    cout << (slow==1 ? "Happy" : "Not Happy") << " Number"; return 0;
+}`,
+                explanation: "A Happy number leads to 1 when replaced by the sum of squares of digits repeatedly. Example: 19 → 1²+9²=82 → ... → 1.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Duck Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    string num;
+    cout << "Enter a number: "; cin >> num;
+    bool duck=false;
+    for(int i=1;i<num.length();i++) if(num[i]=='0'){ duck=true; break;}
+    cout << (duck ? "Duck" : "Not Duck") << " Number"; return 0;
+}`,
+                explanation: "A Duck number contains zero in its digits except the first digit. Example: 102, 302.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Buzz Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num;
+    cout << "Enter a number: "; cin >> num;
+    cout << ((num%7==0 || num%10==7) ? "Buzz" : "Not Buzz") << " Number"; return 0;
+}`,
+                explanation: "A Buzz number is divisible by 7 or ends with 7. Example: 14, 17.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Evil Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, count=0;
+    cout << "Enter a number: "; cin >> num;
+    int temp=num;
+    while(temp>0){ if(temp%2==1) count++; temp/=2;}
+    cout << ((count%2==0) ? "Evil" : "Not Evil") << " Number"; return 0;
+}`,
+                explanation: "An Evil number has even number of 1s in binary representation. Example: 3 → 11 (2 ones).",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Sunny Number": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    int num;
+    cout << "Enter a number: "; cin >> num;
+    int root = sqrt(num+1);
+    cout << ((root*root==num+1) ? "Sunny" : "Not Sunny") << " Number"; return 0;
+}`,
+                explanation: "A Sunny number is a number whose next number is a perfect square. Example: 8 → 9 is perfect square.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Kaprekar Number": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    int num;
+    cout << "Enter a number: "; cin >> num;
+    long sq = (long)num*num;
+    string s = to_string(sq);
+    string left=s.substr(0,s.length()/2);
+    string right=s.substr(s.length()/2);
+    int l = left.empty()?0:stoi(left);
+    int r = right.empty()?0:stoi(right);
+    cout << ((l+r==num) ? "Kaprekar" : "Not Kaprekar") << " Number"; return 0;
+}`,
+                explanation: "A Kaprekar number when squared, its right part of digits added to left part equals the number. Example: 45 → 45^2=2025 → 20+25=45.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Fibonacci Series": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n, t1=0, t2=1, nextTerm;
+    cout << "Enter number of terms: "; cin >> n;
+    for(int i=1;i<=n;i++){
+        cout << t1 << " ";
+        nextTerm=t1+t2;
+        t1=t2; t2=nextTerm;
+    }
+    return 0;
+}`,
+                explanation: "A series where each number is sum of previous two. Example: 0,1,1,2,3,5,...",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Factorial Calculation": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n, fact=1;
+    cout << "Enter a number: "; cin >> n;
+    for(int i=1;i<=n;i++) fact*=i;
+    cout << "Factorial: " << fact; return 0;
+}`,
+                explanation: "The factorial of n (n!) is the product of all positive integers ≤ n. Example: 5! = 5*4*3*2*1 = 120.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "LCM of Two Numbers": {
+                code: `#include <iostream>
+using namespace std;
+int gcd(int a,int b){ return b==0?a:gcd(b,a%b);}
+int main() {
+    int a,b;
+    cout << "Enter two numbers: "; cin >> a >> b;
+    cout << "LCM: " << (a*b)/gcd(a,b);
+    return 0;
+}`,
+                explanation: "LCM (Least Common Multiple) is the smallest number divisible by both numbers.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "GCD of Two Numbers": {
+                code: `#include <iostream>
+using namespace std;
+int gcd(int a,int b){ return b==0?a:gcd(b,a%b);}
+int main() {
+    int a,b;
+    cout << "Enter two numbers: "; cin >> a >> b;
+    cout << "GCD: " << gcd(a,b); return 0;
+}`,
+                explanation: "GCD (Greatest Common Divisor) is the largest number that divides both numbers exactly.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Reverse a Number": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, rev=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    while(num>0){ digit=num%10; rev=rev*10+digit; num/=10; }
+    cout << "Reversed Number: " << rev; return 0;
+}`,
+                explanation: "Reversing a number means writing its digits backward. Example: 123 → 321.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Sum of Digits": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0;
+    cout << "Enter a number: "; cin >> num;
+    while(num>0){ sum+=num%10; num/=10; }
+    cout << "Sum of digits: " << sum; return 0;
+}`,
+                explanation: "Sum of Digits is adding all digits of a number. Example: 123 → 1+2+3=6.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Product of Digits": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, prod=1;
+    cout << "Enter a number: "; cin >> num;
+    while(num>0){ prod*=num%10; num/=10; }
+    cout << "Product of digits: " << prod; return 0;
+}`,
+                explanation: "Product of Digits is multiplying all digits of a number. Example: 123 → 1*2*3=6.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Check Leap Year": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int year;
+    cout << "Enter year: "; cin >> year;
+    if((year%4==0 && year%100!=0) || (year%400==0)) cout << "Leap Year";
+    else cout << "Not Leap Year";
+    return 0;
+}`,
+                explanation: "A Leap Year is divisible by 4 but not by 100 unless divisible by 400.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Binary to Decimal": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    int bin, dec=0, i=0, rem;
+    cout << "Enter binary number: "; cin >> bin;
+    int temp=bin;
+    while(temp>0){ rem=temp%10; dec+=rem*pow(2,i++); temp/=10; }
+    cout << "Decimal: " << dec; return 0;
+}`,
+                explanation: "Convert binary number to decimal. Example: 101 → 5.",
+                difficulty: "medium",
+                category: "math"
+            },
+            "Decimal to Binary": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int dec;
+    cout << "Enter decimal number: "; cin >> dec;
+    int bin[32], i=0;
+    while(dec>0){ bin[i++] = dec%2; dec/=2; }
+    cout << "Binary: ";
+    for(int j=i-1;j>=0;j--) cout << bin[j];
+    return 0;
+}`,
+                explanation: "Convert decimal number to binary. Example: 5 → 101.",
+                difficulty: "medium",
+                category: "math"
+            },
+            "Perfect Square Check": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    int num;
+    cout << "Enter a number: "; cin >> num;
+    int root = sqrt(num);
+    cout << ((root*root==num) ? "Perfect Square" : "Not Perfect Square"); return 0;
+}`,
+                explanation: "A number is perfect square if square root is integer. Example: 16 → √16=4.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Largest Digit": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, max=0, digit;
+    cout << "Enter a number: "; cin >> num;
+    while(num>0){ digit=num%10; if(digit>max) max=digit; num/=10; }
+    cout << "Largest Digit: " << max; return 0;
+}`,
+                explanation: "Find the largest digit in a number. Example: 482 → 8.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Smallest Digit": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, min=9, digit;
+    cout << "Enter a number: "; cin >> num;
+    while(num>0){ digit=num%10; if(digit<min) min=digit; num/=10; }
+    cout << "Smallest Digit: " << min; return 0;
+}`,
+                explanation: "Find the smallest digit in a number. Example: 482 → 2.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Co-Prime Numbers": {
+                code: `#include <iostream>
+using namespace std;
+int gcd(int a,int b){ return b==0?a:gcd(b,a%b); }
+int main() {
+    int a,b; cout << "Enter two numbers: "; cin >> a >> b;
+    cout << ((gcd(a,b)==1) ? "Co-Prime" : "Not Co-Prime") << " Numbers"; return 0;
+}`,
+                explanation: "Two numbers with GCD 1 are Co-Prime. Example: 8 & 15.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Even or Odd": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num; cout << "Enter a number: "; cin >> num;
+    cout << ((num%2==0) ? "Even" : "Odd"); return 0;
+}`,
+                explanation: "Determine if a number is even (divisible by 2) or odd.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Prime in Range": {
+                code: `#include <iostream>
+using namespace std;
+bool isPrime(int n){ if(n<2) return false; for(int i=2;i*i<=n;i++) if(n%i==0) return false; return true;}
+int main() {
+    int a,b; cout << "Enter range: "; cin >> a >> b;
+    for(int i=a;i<=b;i++) if(isPrime(i)) cout << i << " "; return 0;
+}`,
+                explanation: "Find all prime numbers within a given range.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Count Digits": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, count=0; cout << "Enter a number: "; cin >> num;
+    while(num>0){ count++; num/=10; }
+    cout << "Digit count: " << count; return 0;
+}`,
+                explanation: "Count number of digits in a number. Example: 1234 → 4.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Power of a Number": {
+                code: `#include <iostream>
+using namespace std;
+#include <cmath>
+int main() {
+    int base, exp; cout << "Enter base and exponent: "; cin >> base >> exp;
+    cout << "Result: " << pow(base,exp); return 0;
+}`,
+                explanation: "Calculate number^exponent. Example: 2^3=8.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Armstrong in Range": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+bool isArmstrong(int n){ int temp=n, sum=0, count=0, digit; while(temp>0){ count++; temp/=10; } temp=n; while(temp>0){ digit=temp%10; sum+=pow(digit,count--); temp/=10; } return sum==n;}
+int main() {
+    int a,b; cout << "Enter range: "; cin >> a >> b;
+    for(int i=a;i<=b;i++) if(isArmstrong(i)) cout << i << " "; return 0;
+}`,
+                explanation: "Find all Armstrong numbers within a range.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Sum of Even Digits": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0, digit; cout << "Enter a number: "; cin >> num;
+    while(num>0){ digit=num%10; if(digit%2==0) sum+=digit; num/=10; }
+    cout << "Sum of even digits: " << sum; return 0;
+}`,
+                explanation: "Sum only the even digits of a number. Example: 1234 → 2+4=6.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Sum of Odd Digits": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num, sum=0, digit; cout << "Enter a number: "; cin >> num;
+    while(num>0){ digit=num%10; if(digit%2!=0) sum+=digit; num/=10; }
+    cout << "Sum of odd digits: " << sum; return 0;
+}`,
+                explanation: "Sum only the odd digits. Example: 1234 → 1+3=4.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Strong in Range": {
+                code: `#include <iostream>
+using namespace std;
+int factorial(int n){ int f=1; for(int i=1;i<=n;i++) f*=i; return f;}
+bool isStrong(int n){ int temp=n,sum=0,digit; while(temp>0){ digit=temp%10; sum+=factorial(digit); temp/=10;} return sum==n;}
+int main() {
+    int a,b; cout << "Enter range: "; cin >> a >> b;
+    for(int i=a;i<=b;i++) if(isStrong(i)) cout << i << " "; return 0;
+}`,
+                explanation: "Find all Strong numbers within a range.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Display Prime Numbers": {
+                code: `#include <iostream>
+using namespace std;
+bool isPrime(int n){ if(n<2) return false; for(int i=2;i*i<=n;i++) if(n%i==0) return false; return true;}
+int main() {
+    int n; cout << "Enter limit: "; cin >> n;
+    for(int i=2;i<=n;i++) if(isPrime(i)) cout << i << " "; return 0;
+}`,
+                explanation: "Print all prime numbers up to a given limit.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Fibonacci till N": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n,t1=0,t2=1,nextTerm=0; cout << "Enter n: "; cin >> n;
+    while(t1<=n){ cout << t1 << " "; nextTerm=t1+t2; t1=t2; t2=nextTerm;} return 0;
+}`,
+                explanation: "Print Fibonacci series up to Nth term.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Sum of Series": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n; double sum=0; cout << "Enter n: "; cin >> n;
+    for(int i=1;i<=n;i++) sum+=1.0/i;
+    cout << "Sum: " << sum; return 0;
+}`,
+                explanation: "Sum a series of numbers, e.g., 1+2+3+...+n.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Pattern 1": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n; cout << "Enter rows: "; cin >> n;
+    for(int i=1;i<=n;i++){ for(int j=1;j<=i;j++) cout << "* "; cout << endl;} return 0;
+}`,
+                explanation: "Print first type of pattern using loops (e.g., triangle of stars).",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Pattern 2": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n; cout << "Enter rows: "; cin >> n;
+    for(int i=1;i<=n;i++){ for(int j=i;j<n;j++) cout << " "; for(int k=1;k<=i;k++) cout << "*"; cout << endl;} return 0;
+}`,
+                explanation: "Print second type of pattern using loops (e.g., inverted triangle).",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Pattern 3": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int n; cout << "Enter rows: "; cin >> n;
+    for(int i=n;i>=1;i--){ for(int j=1;j<=i;j++) cout << "* "; cout << endl;} return 0;
+}`,
+                explanation: "Print third type of pattern using loops (e.g., diamond pattern).",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "ASCII Value Finder": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    char c; cout << "Enter a character: "; cin >> c;
+    cout << "ASCII: " << int(c); return 0;
+}`,
+                explanation: "Find ASCII value of a character. Example: A → 65.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Simple Calculator": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    char op; double a,b;
+    cout << "Enter two numbers and operator: "; cin >> a >> b >> op;
+    switch(op){
+        case '+': cout << a+b; break;
+        case '-': cout << a-b; break;
+        case '*': cout << a*b; break;
+        case '/': cout << a/b; break;
+        default: cout << "Invalid operator";
+    }
+    return 0;
+}`,
+                explanation: "Perform basic operations: +, -, *, / between two numbers.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Swap Two Numbers": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int a,b; cout << "Enter two numbers: "; cin >> a >> b;
+    a=a+b; b=a-b; a=a-b;
+    cout << "After swap: " << a << " " << b; return 0;
+}`,
+                explanation: "Swap values of two numbers using temporary variable or without temp.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Positive or Negative": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    int num; cout << "Enter a number: "; cin >> num;
+    cout << ((num>=0) ? "Positive" : "Negative"); return 0;
+}`,
+                explanation: "Check if a number is positive, negative, or zero.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Temperature Converter": {
+                code: `#include <iostream>
+using namespace std;
+int main() {
+    char unit; double temp; cout << "Enter temperature and unit(C/F): "; cin >> temp >> unit;
+    if(unit=='C' || unit=='c') cout << "Fahrenheit: " << (temp*9/5)+32;
+    else if(unit=='F' || unit=='f') cout << "Celsius: " << (temp-32)*5/9;
+    else cout << "Invalid unit"; return 0;
+}`,
+                explanation: "Convert temperature between Celsius, Fahrenheit, Kelvin.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Area of Circle": {
+                code: `#include <iostream>
+using namespace std;
+#define PI 3.14159
+int main() { double r; cout << "Enter radius: "; cin >> r; cout << "Area: " << PI*r*r; return 0; }`,
+                explanation: "Area = π*r^2",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Area of Triangle": {
+                code: `#include <iostream>
+using namespace std;
+int main() { double b,h; cout << "Enter base and height: "; cin >> b >> h; cout << "Area: " << 0.5*b*h; return 0; }`,
+                explanation: "Area = 0.5*base*height",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Area of Rectangle": {
+                code: `#include <iostream>
+using namespace std;
+int main() { double l,w; cout << "Enter length and width: "; cin >> l >> w; cout << "Area: " << l*w; return 0; }`,
+                explanation: "Area = length*width",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Volume of Sphere": {
+                code: `#include <iostream>
+using namespace std;
+#define PI 3.14159
+int main() { double r; cout << "Enter radius: "; cin >> r; cout << "Volume: " << (4.0/3)*PI*r*r*r; return 0; }`,
+                explanation: "Volume = 4/3 * π * r^3",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Volume of Cylinder": {
+                code: `#include <iostream>
+using namespace std;
+#define PI 3.14159
+int main() { double r,h; cout << "Enter radius and height: "; cin >> r >> h; cout << "Volume: " << PI*r*r*h; return 0; }`,
+                explanation: "Volume = π * r^2 * h",
+                difficulty: "easy",
+                category: "math"
+            },
+            "ASCII Character Type": {
+                code: `#include <iostream>
+using namespace std;
+int main() { char c; cout << "Enter character: "; cin >> c; cout << ((c>='A' && c<='Z')?"Uppercase":(c>='a' && c<='z')?"Lowercase":"Other"); return 0; }`,
+                explanation: "Check if character is uppercase, lowercase, digit, or special character.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Reverse String": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; cout << "Enter string: "; cin >> s; for(int i=s.length()-1;i>=0;i--) cout << s[i]; return 0; }`,
+                explanation: "Reverse the characters of a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Palindrome String": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; cout << "Enter string: "; cin >> s; string rev=s; reverse(rev.begin(),rev.end()); cout << ((s==rev) ? "Palindrome" : "Not Palindrome"); return 0; }`,
+                explanation: "Check if a string reads same forwards and backwards.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Count Vowels": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; int count=0; cout << "Enter string: "; cin >> s; for(char c:s) if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u'||c=='A'||c=='E'||c=='I'||c=='O'||c=='U') count++; cout << "Vowels: " << count; return 0; }`,
+                explanation: "Count number of vowels in a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Count Consonants": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; int count=0; cout << "Enter string: "; cin >> s; for(char c:s) if((c>='A' && c<='Z')||(c>='a' && c<='z')&&!(c=='a'||c=='e'||c=='i'||c=='o'||c=='u'||c=='A'||c=='E'||c=='I'||c=='O'||c=='U')) count++; cout << "Consonants: " << count; return 0; }`,
+                explanation: "Count number of consonants in a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "String Length": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; cout << "Enter string: "; cin >> s; cout << "Length: " << s.length(); return 0; }`,
+                explanation: "Find number of characters in a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Character Frequency": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; char ch; int count=0; cout << "Enter string: "; cin >> s; cout << "Enter character: "; cin >> ch; for(char c:s) if(c==ch) count++; cout << "Frequency: " << count; return 0; }`,
+                explanation: "Find frequency of each character in a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Remove Spaces": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string str, result = "";
+    getline(cin, str);
+    for(char c : str)
+        if(c != ' ')
+            result += c;
+    cout << result;
+    return 0;
+}`,
+                explanation: "Remove all spaces from a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Word Count": {
+                code: `#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+int main() {
+    string str;
+    getline(cin, str);
+    stringstream ss(str);
+    string word;
+    int count = 0;
+    while(ss >> word) count++;
+    cout << count;
+    return 0;
+}`,
+                explanation: "Count number of words in a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Special Characters Count": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string str;
+    getline(cin, str);
+    int count = 0;
+    for(char c : str)
+        if(!isalnum(c) && !isspace(c)) count++;
+    cout << count;
+    return 0;
+}`,
+                explanation: "Count number of non-alphanumeric characters in a string.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Check Anagram": {
+                code: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+int main() { string s1,s2; cout << "Enter two strings: "; cin >> s1 >> s2; sort(s1.begin(),s1.end()); sort(s2.begin(),s2.end()); cout << ((s1==s2)?"Anagram":"Not Anagram"); return 0; }`,
+                explanation: "Check if two strings are anagrams (same letters, different order).",
+                difficulty: "medium",
+                category: "string"
+            },
+            "Uppercase String": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; cout << "Enter string: "; cin >> s; for(char &c:s) if(c>='a'&&c<='z') c=c-32; cout << s; return 0; }`,
+                explanation: "Convert all characters to uppercase.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Lowercase String": {
+                code: `#include <iostream>
+#include <string>
+using namespace std;
+int main() { string s; cout << "Enter string: "; cin >> s; for(char &c:s) if(c>='A'&&c<='Z') c=c+32; cout << s; return 0; }`,
+                explanation: "Convert all characters to lowercase.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Find Maximum in Array": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n],max=INT_MIN; for(int i=0;i<n;i++){ cin >> a[i]; if(a[i]>max) max=a[i]; } cout << "Maximum: " << max; return 0; }`,
+                explanation: "Find the largest element in an array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Find Minimum in Array": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n],min=INT_MAX; for(int i=0;i<n;i++){ cin >> a[i]; if(a[i]<min) min=a[i]; } cout << "Minimum: " << min; return 0; }`,
+                explanation: "Find the smallest element in an array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Sum of Array Elements": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n,sum=0; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++){ cin >> a[i]; sum+=a[i]; } cout << "Sum: " << sum; return 0; }`,
+                explanation: "Add all elements of an array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Reverse Array": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; cout << "Reversed: "; for(int i=n-1;i>=0;i--) cout << a[i] << " "; return 0; }`,
+                explanation: "Reverse the elements of an array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Linear Search": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n,key,pos=-1; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; cout << "Enter key: "; cin >> key; for(int i=0;i<n;i++) if(a[i]==key) { pos=i; break; } cout << ((pos!=-1)? "Found at index "+to_string(pos) : "Not Found"); return 0; }`,
+                explanation: "Search an array by checking each element sequentially.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Binary Search": {
+                code: `#include <iostream>
+#include <algorithm>
+using namespace std;
+int main() { int n,key; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; cout << "Enter key: "; cin >> key; sort(a,a+n); int l=0,r=n-1,mid,pos=-1; while(l<=r){ mid=(l+r)/2; if(a[mid]==key){ pos=mid; break;} else if(a[mid]<key) l=mid+1; else r=mid-1;} cout << ((pos!=-1)?"Found at index "+to_string(pos):"Not Found"); return 0; }`,
+                explanation: "Search a sorted array by repeatedly dividing search interval in half.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Bubble Sort": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; for(int i=0;i<n-1;i++) for(int j=0;j<n-i-1;j++) if(a[j]>a[j+1]) swap(a[j],a[j+1]); cout << "Sorted: "; for(int i=0;i<n;i++) cout << a[i] << " "; return 0; }`,
+                explanation: "Sort array by repeatedly swapping adjacent elements if in wrong order.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Selection Sort": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; for(int i=0;i<n-1;i++){ int min_idx=i; for(int j=i+1;j<n;j++) if(a[j]<a[min_idx]) min_idx=j; swap(a[i],a[min_idx]); } cout << "Sorted: "; for(int i=0;i<n;i++) cout << a[i] << " "; return 0; }`,
+                explanation: "Sort array by repeatedly selecting minimum element and moving it to correct position.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Insertion Sort": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; for(int i=1;i<n;i++){ int key=a[i], j=i-1; while(j>=0 && a[j]>key){ a[j+1]=a[j]; j--; } a[j+1]=key; } cout << "Sorted: "; for(int i=0;i<n;i++) cout << a[i] << " "; return 0; }`,
+                explanation: "Sort array by inserting elements into their correct position one by one.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Find Second Largest": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; int max1=INT_MIN,max2=INT_MIN; for(int i=0;i<n;i++){ if(a[i]>max1){ max2=max1; max1=a[i];} else if(a[i]>max2 && a[i]!=max1) max2=a[i]; } cout << "Second Largest: " << max2; return 0; }`,
+                explanation: "Find the second largest element in an array.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Find Second Smallest": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++) cin >> a[i]; int min1=INT_MAX,min2=INT_MAX; for(int i=0;i<n;i++){ if(a[i]<min1){ min2=min1; min1=a[i];} else if(a[i]<min2 && a[i]!=min1) min2=a[i]; } cout << "Second Smallest: " << min2; return 0; }`,
+                explanation: "Find the second smallest element in an array.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Count Even and Odd in Array": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n, even=0, odd=0; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++){ cin >> a[i]; if(a[i]%2==0) even++; else odd++; } cout << "Even: " << even << ", Odd: " << odd; return 0; }`,
+                explanation: "Count even and odd numbers in an array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Sum of Even and Odd in Array": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n, even_sum=0, odd_sum=0; cout << "Enter size: "; cin >> n; int a[n]; for(int i=0;i<n;i++){ cin >> a[i]; if(a[i]%2==0) even_sum+=a[i]; else odd_sum+=a[i]; } cout << "Sum Even: " << even_sum << ", Sum Odd: " << odd_sum; return 0; }`,
+                explanation: "Sum of even and odd numbers separately in an array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Transpose of Matrix": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int r,c; cout << "Enter rows and columns: "; cin >> r >> c; int a[r][c],t[c][r]; for(int i=0;i<r;i++) for(int j=0;j<c;j++) cin >> a[i][j]; for(int i=0;i<r;i++) for(int j=0;j<c;j++) t[j][i]=a[i][j]; cout << "Transpose: "; for(int i=0;i<c;i++){ for(int j=0;j<r;j++) cout << t[i][j] << " "; cout << endl;} return 0; }`,
+                explanation: "Swap rows with columns of a matrix.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Add Two Matrices": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int r,c; cout << "Enter rows and columns: "; cin >> r >> c; int a[r][c],b[r][c],sum[r][c]; for(int i=0;i<r;i++) for(int j=0;j<c;j++) cin >> a[i][j]; for(int i=0;i<r;i++) for(int j=0;j<c;j++) cin >> b[i][j]; for(int i=0;i<r;i++){ for(int j=0;j<c;j++) { sum[i][j]=a[i][j]+b[i][j]; cout << sum[i][j] << " ";} cout << endl;} return 0; }`,
+                explanation: "Add two matrices element by element.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Multiply Two Matrices": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int r1,c1,r2,c2; cout << "Enter r1 c1: "; cin >> r1 >> c1; cout << "Enter r2 c2: "; cin >> r2 >> c2; if(c1!=r2){ cout << "Cannot multiply"; return 0;} int a[r1][c1],b[r2][c2],res[r1][c2]={0}; for(int i=0;i<r1;i++) for(int j=0;j<c1;j++) cin >> a[i][j]; for(int i=0;i<r2;i++) for(int j=0;j<c2;j++) cin >> b[i][j]; for(int i=0;i<r1;i++) for(int j=0;j<c2;j++) for(int k=0;k<c1;k++) res[i][j]+=a[i][k]*b[k][j]; for(int i=0;i<r1;i++){ for(int j=0;j<c2;j++) cout << res[i][j] << " "; cout << endl;} return 0; }`,
+                explanation: "Multiply two matrices according to matrix multiplication rules.",
+                difficulty: "hard",
+                category: "array"
+            },
+            "Identity Matrix Check": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int mat[n][n]; for(int i=0;i<n;i++) for(int j=0;j<n;j++) cin >> mat[i][j]; bool isIdentity=true; for(int i=0;i<n;i++) for(int j=0;j<n;j++) if((i==j && mat[i][j]!=1) || (i!=j && mat[i][j]!=0)) isIdentity=false; cout << (isIdentity ? "Yes" : "No"); return 0; }`,
+                explanation: "Check if a matrix is an identity matrix (1s on diagonal, 0s elsewhere).",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Diagonal Sum": {
+                code: `#include <iostream>
+using namespace std;
+int main() { int n; cout << "Enter size: "; cin >> n; int mat[n][n], sum=0; for(int i=0;i<n;i++) for(int j=0;j<n;j++) cin >> mat[i][j]; for(int i=0;i<n;i++) sum += mat[i][i]; cout << sum; return 0; }`,
+                explanation: "Find the sum of the diagonal elements of a matrix.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Factorial using Recursion": {
+                code: `#include <iostream>
+using namespace std;
+int factorial(int n){ return n<=1?1:n*factorial(n-1); }
+int main() {
+    int n;
+    cin >> n;
+    cout << factorial(n);
+    return 0;
+}`,
+                explanation: "Calculate factorial using recursive function.",
+                difficulty: "easy",
+                category: "recursion"
+            },
+            "Fibonacci using Recursion": {
+                code: `#include <iostream>
+using namespace std;
+int fibonacci(int n){ return n<=1?n:fibonacci(n-1)+fibonacci(n-2); }
+int main() {
+    int n;
+    cin >> n;
+    for(int i=0;i<n;i++) cout << fibonacci(i) << " ";
+    return 0;
+}`,
+                explanation: "Generate Fibonacci series using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Prime using Function": {
+                code: `#include <iostream>
+using namespace std;
+bool isPrime(int n){
+    if(n<=1) return false;
+    for(int i=2;i*i<=n;i++) if(n%i==0) return false;
+    return true;
+}
+int main() {
+    int n;
+    cin >> n;
+    cout << (isPrime(n) ? "Yes" : "No");
+    return 0;
+}`,
+                explanation: "Check if number is prime using a separate function.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Armstrong using Function": {
+                code: `#include <iostream>
+#include <cmath>
+using namespace std;
+bool isArmstrong(int n){
+    int sum=0, temp=n;
+    while(temp){
+        int d=temp%10;
+        sum+=pow(d,3);
+        temp/=10;
+    }
+    return sum==n;
+}
+int main() {
+    int n;
+    cin >> n;
+    cout << (isArmstrong(n) ? "Yes" : "No");
+    return 0;
+}`,
+                explanation: "Check Armstrong number using a separate function.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Perfect Number using Function": {
+                code: `#include <iostream>
+using namespace std;
+bool isPerfect(int n){
+    int sum=0;
+    for(int i=1;i<n;i++) if(n%i==0) sum+=i;
+    return sum==n;
+}
+int main() {
+    int n;
+    cin >> n;
+    cout << (isPerfect(n) ? "Yes" : "No");
+    return 0;
+}`,
+                explanation: "Check Perfect number using a function.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Strong Number using Function": {
+                code: `#include <iostream>
+using namespace std;
+int factorial(int n){ return n<=1?1:n*factorial(n-1); }
+bool isStrong(int n){
+    int sum=0,temp=n;
+    while(temp){ sum+=factorial(temp%10); temp/=10; }
+    return sum==n;
+}
+int main() {
+    int n;
+    cin >> n;
+    cout << (isStrong(n) ? "Yes" : "No");
+    return 0;
+}`,
+                explanation: "Check Strong number using a function.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Prime Number Between Two Numbers": {
+                code: `#include<iostream> 
+using namespace std; 
+int main() 
+{ 
+ int num1, num2, count; 
+ cout << "Enter first number : "; cin >> num1;cout << endl; 
+ cout << "Enter Second number : "; cin >> num2;cout << endl; 
+ cout << "Prime numbers between " << num1 << " and " << num2 << " are following: " << endl; 
+ while (num1 <= num2) 
+ { 
+  if (num1 >= 2) 
+  { 
+   count = 2; 
+   bool isprime = true; 
+   while (count * count <= num1) 
+   { 
+    if (num1 % count == 0) 
+    { 
+     isprime = false; 
+     break; 
+    } 
+    count = count + 1; 
+   } 
+   if (isprime) 
+   { 
+        cout << num1 << endl; 
+   } 
+ 
+  } 
+  num1 = num1 + 1; 
+ } 
+ system("pause"); 
+ return 0; 
+}`,
+                explanation: "Find all prime numbers between two given numbers.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Pair Prime Numbers With Difference Of Two Between Two Numbers": {
+                code: `#include<iostream> 
+using namespace std; 
+int main() 
+{ 
+int num1, num2, num3, count; 
+cout << "Enter first number : "; cin >> num1; cout << endl; 
+cout << "Enter Second  number : "; cin >> num2; cout << endl; 
+cout << "Twin-Prime numbers between " << num1 << " and " << num2 << " are following: " << endl; 
+while (num1 <= num2 - 2) 
+{ 
+count = 2; 
+bool isprime1 = true; 
+if (num1 >= 2) 
+{ 
+while (count * count <= num1) 
+{ 
+    if (num1 % count == 0) 
+    { 
+     isprime1 = false; 
+     break; 
+    } 
+    count = count + 1; 
+   } 
+  } 
+  else 
+  { 
+   isprime1 = false; 
+  } 
+  count = 2; 
+  num3 = num1 + 2; 
+  bool isprime2 = true; 
+  if (num3 >= 2) 
+  { 
+   while (count * count <= num3) 
+   { 
+    if (num3 % count == 0) 
+    { 
+     isprime1 = false; 
+     break; 
+    } 
+    count = count + 1; 
+   } 
+  } 
+  else 
+{ 
+isprime2 = false; 
+} 
+if (isprime1 && isprime2) 
+{ 
+} 
+cout << num1 << "," << num3 << endl; 
+num1 = num1 + 1; 
+} 
+system("pause"); 
+return 0; 
+} `,
+                explanation: "Find all prime pairs between two numbers whose difference is 2 (twin primes).",
+                difficulty: "hard",
+                category: "number"
+            },
+            "Sum of Prime Digits": {
+                code: `#include<iostream>
+using namespace std;
+bool isPrime(int n){ if(n<2) return false; for(int i=2;i*i<=n;i++) if(n%i==0) return false; return true;}
+int main(){ 
+    int n,sum=0; 
+    cin>>n; 
+    while(n){ 
+        int d=n%10; 
+        if(isPrime(d)) sum+=d; 
+        n/=10;
+    } 
+    cout<<"Sum of prime digits: "<<sum<<endl; 
+    return 0;
+}`,
+                explanation: "Find the sum of digits in a number that are prime (2, 3, 5, 7). Example: 2354 → 2 + 3 + 5 = 10.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Count Divisors of a Number": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ 
+    int n,count=0; 
+    cin>>n; 
+    for(int i=1;i<=n;i++) 
+        if(n%i==0) count++; 
+    cout<<"Number of divisors: "<<count<<endl; 
+    return 0;
+}`,
+                explanation: "Count all numbers that divide the given number exactly without leaving a remainder.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Check Armstrong in Decimal": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+int main(){ 
+    int n,temp,sum=0,digits=0; 
+    cin>>n; 
+    temp=n; 
+    while(temp){ temp/=10; digits++;} 
+    temp=n; 
+    while(temp){ sum+=pow(temp%10,digits); temp/=10;} 
+    if(sum==n) cout<<"Armstrong"<<endl; else cout<<"Not Armstrong"<<endl; 
+    return 0;
+}`,
+                explanation: "Check if a number equals the sum of its digits raised to the power of total digits in base 10. Example: 153 → 1³ + 5³ + 3³ = 153.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Factorial Digit Sum": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ 
+    int n; cin>>n; 
+    unsigned long long fact=1; 
+    for(int i=1;i<=n;i++) fact*=i; 
+    int sum=0; 
+    while(fact){ sum+=fact%10; fact/=10;} 
+    cout<<"Sum of factorial digits: "<<sum<<endl; 
+    return 0;
+}`,
+                explanation: "Calculate the sum of factorials of each digit. Example: 145 → 1! + 4! + 5! = 145.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Sum of Squares": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ 
+    int n,sum=0; 
+    cin>>n; 
+    for(int i=1;i<=n;i++) sum+=i*i; 
+    cout<<"Sum of squares: "<<sum<<endl; 
+    return 0;
+}`,
+                explanation: "Find the sum of squares of all numbers up to a given limit. Example: n=3 → 1² + 2² + 3² = 14.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Sum of Cubes": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ 
+    int n,sum=0; 
+    cin>>n; 
+    for(int i=1;i<=n;i++) sum+=i*i*i; 
+    cout<<"Sum of cubes: "<<sum<<endl; 
+    return 0;
+}`,
+                explanation: "Find the sum of cubes of all numbers up to a given limit. Example: n=3 → 1³ + 2³ + 3³ = 36.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Nth Fibonacci Number": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ 
+    int n; cin>>n; 
+    long long a=0,b=1,c; 
+    if(n==1){ cout<<a; return 0;} 
+    for(int i=2;i<=n;i++){ c=a+b; a=b; b=c;} 
+    cout<<b<<endl; 
+    return 0;
+}`,
+                explanation: "Find the Nth number in the Fibonacci series using recursion or loops.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Sum of Fibonacci Series": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ 
+    int n; cin>>n; 
+    long long a=0,b=1,c,sum=0; 
+    for(int i=1;i<=n;i++){ sum+=a; c=a+b; a=b; b=c;} 
+    cout<<"Sum of Fibonacci series: "<<sum<<endl; 
+    return 0;
+}`,
+                explanation: "Find the sum of the first N Fibonacci numbers. Example: N=5 → 0+1+1+2+3=7.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Find GCD Using Recursion": {
+                code: `#include<iostream>
+using namespace std;
+int gcd(int a,int b){ if(b==0) return a; return gcd(b,a%b);}
+int main(){ int a,b; cin>>a>>b; cout<<"GCD: "<<gcd(a,b)<<endl; return 0;}`,
+                explanation: "Find the greatest common divisor (HCF) of two numbers using a recursive function.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Find LCM Using Recursion": {
+                code: `#include<iostream>
+using namespace std;
+int gcd(int a,int b){ if(b==0) return a; return gcd(b,a%b);}
+int main(){ int a,b; cin>>a>>b; cout<<"LCM: "<<(a*b)/gcd(a,b)<<endl; return 0;}`,
+                explanation: "Find the least common multiple (LCM) of two numbers using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Reverse a String Recursively": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+void reverseStr(string &s,int l,int r){ if(l>=r) return; swap(s[l],s[r]); reverseStr(s,l+1,r-1);}
+int main(){ string s; cin>>s; reverseStr(s,0,s.size()-1); cout<<s<<endl; return 0;}`,
+                explanation: "Reverse the given string using recursion instead of loops.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Palindrome String Recursive": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+bool isPalindrome(string &s,int l,int r){ if(l>=r) return true; return (s[l]==s[r] && isPalindrome(s,l+1,r-1));}
+int main(){ string s; cin>>s; if(isPalindrome(s,0,s.size()-1)) cout<<"Palindrome"<<endl; else cout<<"Not Palindrome"<<endl; return 0;}`,
+                explanation: "Check if a string reads the same forward and backward using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Perfect Square Recursively": {
+                code: `#include<iostream>
+using namespace std;
+bool isPerfect(int n,int i=1){ if(i*i==n) return true; if(i*i>n) return false; return isPerfect(n,i+1);}
+int main(){ int n; cin>>n; if(isPerfect(n)) cout<<"Perfect Square"<<endl; else cout<<"Not Perfect Square"<<endl; return 0;}`,
+                explanation: "Use recursion to determine if a number's square root is a whole number.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Palindrome Number Recursively": {
+                code: `#include<iostream>
+using namespace std;
+bool isPalindrome(int n,int rev=0,int orig=-1){ if(orig==-1) orig=n; if(n==0) return orig==rev; return isPalindrome(n/10,rev*10+n%10,orig);}
+int main(){ int n; cin>>n; if(isPalindrome(n)) cout<<"Palindrome"<<endl; else cout<<"Not Palindrome"<<endl; return 0;}`,
+                explanation: "Check if a number is the same when its digits are reversed recursively.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Sum of Even Numbers in Array": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n],sum=0; for(int i=0;i<n;i++){ cin>>arr[i]; if(arr[i]%2==0) sum+=arr[i];} cout<<"Sum of even numbers: "<<sum<<endl; return 0;}`,
+                explanation: "Add all even numbers present in an array and print their sum.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Sum of Odd Numbers in Array": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n],sum=0; for(int i=0;i<n;i++){ cin>>arr[i]; if(arr[i]%2!=0) sum+=arr[i];} cout<<"Sum of odd numbers: "<<sum<<endl; return 0;}`,
+                explanation: "Add all odd numbers present in an array and print their sum.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Count Even Numbers in Array": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n],count=0; for(int i=0;i<n;i++){ cin>>arr[i]; if(arr[i]%2==0) count++;} cout<<"Count of even numbers: "<<count<<endl; return 0;}`,
+                explanation: "Count how many even numbers exist in the given array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Count Odd Numbers in Array": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n],count=0; for(int i=0;i<n;i++){ cin>>arr[i]; if(arr[i]%2!=0) count++;} cout<<"Count of odd numbers: "<<count<<endl; return 0;}`,
+                explanation: "Count how many odd numbers exist in the given array.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Find Largest Element in Array Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int largest(int arr[],int n){ if(n==1) return arr[0]; int temp=largest(arr,n-1); return (temp>arr[n-1]?temp:arr[n-1]);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cout<<"Largest element: "<<largest(arr,n)<<endl; return 0;}`,
+                explanation: "Find the maximum element in an array using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Find Smallest Element in Array Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int smallest(int arr[],int n){ if(n==1) return arr[0]; int temp=smallest(arr,n-1); return (temp<arr[n-1]?temp:arr[n-1]);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cout<<"Smallest element: "<<smallest(arr,n)<<endl; return 0;}`,
+                explanation: "Find the minimum element in an array using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Sum of Array Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int sumArray(int arr[],int n){ if(n==0) return 0; return arr[n-1]+sumArray(arr,n-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cout<<"Sum of array: "<<sumArray(arr,n)<<endl; return 0;}`,
+                explanation: "Calculate the total sum of array elements using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Product of Array Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int productArray(int arr[],int n){ if(n==0) return 1; return arr[n-1]*productArray(arr,n-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cout<<"Product of array: "<<productArray(arr,n)<<endl; return 0;}`,
+                explanation: "Multiply all elements of an array using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Reverse Array Recursively": {
+                code: `#include<iostream>
+using namespace std;
+void reverseArray(int arr[],int l,int r){ if(l>=r) return; swap(arr[l],arr[r]); reverseArray(arr,l+1,r-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; reverseArray(arr,0,n-1); for(int i=0;i<n;i++) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Reverse the order of elements in an array using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Array Sorted Ascending": {
+                code: `#include<iostream>
+using namespace std;
+bool isSorted(int arr[],int n){ if(n==1) return true; return arr[n-2]<=arr[n-1] && isSorted(arr,n-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; if(isSorted(arr,n)) cout<<"Sorted"<<endl; else cout<<"Not Sorted"<<endl; return 0;}`,
+                explanation: "Check whether the array elements are in increasing order.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Array Sorted Descending": {
+                code: `#include<iostream>
+using namespace std;
+bool isSortedDesc(int arr[],int n){ if(n==1) return true; return arr[n-2]>=arr[n-1] && isSortedDesc(arr,n-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; if(isSortedDesc(arr,n)) cout<<"Sorted Descending"<<endl; else cout<<"Not Sorted Descending"<<endl; return 0;}`,
+                explanation: "Check whether the array elements are in decreasing order.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Merge Two Sorted Arrays": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n,m; cin>>n>>m; int a[n],b[m]; for(int i=0;i<n;i++) cin>>a[i]; for(int i=0;i<m;i++) cin>>b[i]; int c[n+m],i=0,j=0,k=0; while(i<n && j<m) c[k++]=(a[i]<b[j]?a[i++]:b[j++]); while(i<n) c[k++]=a[i++]; while(j<m) c[k++]=b[j++]; for(int i=0;i<k;i++) cout<<c[i]<<" "; return 0;}`,
+                explanation: "Combine two sorted arrays into one sorted array.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Intersection of Two Arrays": {
+                code: `#include<iostream>
+#include<algorithm>
+using namespace std;
+int main(){ int n,m; cin>>n>>m; int a[n],b[m]; for(int i=0;i<n;i++) cin>>a[i]; for(int i=0;i<m;i++) cin>>b[i]; sort(a,a+n); sort(b,b+m); int i=0,j=0; while(i<n && j<m){ if(a[i]==b[j]){ cout<<a[i]<<" "; i++; j++; } else if(a[i]<b[j]) i++; else j++;} return 0;}`,
+                explanation: "Find common elements that exist in both arrays.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Union of Two Arrays": {
+                code: `#include<iostream>
+#include<algorithm>
+using namespace std;
+int main(){ int n,m; cin>>n>>m; int a[n],b[m]; for(int i=0;i<n;i++) cin>>a[i]; for(int i=0;i<m;i++) cin>>b[i]; int c[n+m]; for(int i=0;i<n;i++) c[i]=a[i]; for(int i=0;i<m;i++) c[n+i]=b[i]; sort(c,c+n+m); for(int i=0;i<n+m;i++) if(i==0 || c[i]!=c[i-1]) cout<<c[i]<<" "; return 0;}`,
+                explanation: "Find all distinct elements that appear in either array.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Rotate Array Left": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n,d; cin>>n>>d; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; int temp[d]; for(int i=0;i<d;i++) temp[i]=arr[i]; for(int i=d;i<n;i++) arr[i-d]=arr[i]; for(int i=0;i<d;i++) arr[n-d+i]=temp[i]; for(int i=0;i<n;i++) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Shift all elements of an array one position to the left circularly.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Rotate Array Right": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n,d; cin>>n>>d; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; int temp[d]; for(int i=0;i<d;i++) temp[i]=arr[n-d+i]; for(int i=n-1;i>=d;i--) arr[i]=arr[i-d]; for(int i=0;i<d;i++) arr[i]=temp[i]; for(int i=0;i<n;i++) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Shift all elements of an array one position to the right circularly.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Find Max Subarray Sum": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; int maxsum=arr[0]; for(int i=0;i<n;i++){ int sum=0; for(int j=i;j<n;j++){ sum+=arr[j]; if(sum>maxsum) maxsum=sum;}} cout<<"Max subarray sum: "<<maxsum<<endl; return 0;}`,
+                explanation: "Find the subarray having the largest possible sum (Kadane's algorithm).",
+                difficulty: "hard",
+                category: "array"
+            },
+            "Check Anagram Recursively": {
+                code: `#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+bool isAnagram(string a,string b,int n){ if(n==0) return true; sort(a.begin(),a.end()); sort(b.begin(),b.end()); return a==b;}
+int main(){ string s1,s2; cin>>s1>>s2; if(isAnagram(s1,s2,s1.size())) cout<<"Anagram"<<endl; else cout<<"Not Anagram"<<endl; return 0;}`,
+                explanation: "Check if two strings contain the same letters in different order using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Count Vowels in String Recursively": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+int countVowels(string s,int i=0){ if(i>=s.size()) return 0; char c=tolower(s[i]); return ((c=='a'||c=='e'||c=='i'||c=='o'||c=='u')+countVowels(s,i+1));}
+int main(){ string s; cin>>s; cout<<"Vowels count: "<<countVowels(s)<<endl; return 0;}`,
+                explanation: "Count all vowels (a, e, i, o, u) in a string using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Remove Duplicate Characters": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+int main(){ string s,res=""; cin>>s; for(char c:s) if(res.find(c)==string::npos) res+=c; cout<<res<<endl; return 0;}`,
+                explanation: "Remove all repeated characters from a string while keeping the first occurrence.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Find First Non-Repeating Character": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+int main(){ string s; cin>>s; int freq[256]={0}; for(char c:s) freq[c]++; for(char c:s) if(freq[c]==1){ cout<<c<<endl; break;} return 0;}`,
+                explanation: "Find the first character in a string that appears only once.",
+                difficulty: "medium",
+                category: "string"
+            },
+            "Count Character Frequency Recursively": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+void countFreq(string s,int freq[256],int i=0){ if(i>=s.size()) return; freq[s[i]]++; countFreq(s,freq,i+1);}
+int main(){ string s; cin>>s; int freq[256]={0}; countFreq(s,freq); for(int i=0;i<256;i++) if(freq[i]>0) cout<<char(i)<<"="<<freq[i]<<endl; return 0;}`,
+                explanation: "Count how many times each character occurs using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Find ASCII Difference Between Strings": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+int main(){ string s1,s2; cin>>s1>>s2; int diff=0; for(int i=0;i<min(s1.size(),s2.size());i++) diff+=abs(s1[i]-s2[i]); cout<<"ASCII difference: "<<diff<<endl; return 0;}`,
+                explanation: "Find the total ASCII value difference between corresponding characters of two strings.",
+                difficulty: "medium",
+                category: "string"
+            },
+            "Check String Palindrome Ignoring Case": {
+                code: `#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+int main(){ string s; cin>>s; transform(s.begin(),s.end(),s.begin(),::tolower); string rev=s; reverse(rev.begin(),rev.end()); if(s==rev) cout<<"Palindrome"<<endl; else cout<<"Not Palindrome"<<endl; return 0;}`,
+                explanation: "Check if a string is a palindrome while ignoring uppercase/lowercase letters.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Sum of Digits Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int sumDigits(int n){ if(n==0) return 0; return n%10+sumDigits(n/10);}
+int main(){ int n; cin>>n; cout<<"Sum of digits: "<<sumDigits(n)<<endl; return 0;}`,
+                explanation: "Calculate the sum of digits of a number using recursion.",
+                difficulty: "easy",
+                category: "recursion"
+            },
+            "Multiply Digits Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int multiplyDigits(int n){ if(n==0) return 1; return (n%10==0?1:n%10)*multiplyDigits(n/10);}
+int main(){ int n; cin>>n; cout<<"Product of digits: "<<multiplyDigits(n)<<endl; return 0;}`,
+                explanation: "Find the product of digits of a number using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Count Digits Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int countDigits(int n){ if(n==0) return 0; return 1+countDigits(n/10);}
+int main(){ int n; cin>>n; cout<<"Number of digits: "<<countDigits(n)<<endl; return 0;}`,
+                explanation: "Count the total digits in a number using recursion.",
+                difficulty: "easy",
+                category: "recursion"
+            },
+            "Power Using Recursion": {
+                code: `#include<iostream>
+using namespace std;
+int power(int a,int b){ if(b==0) return 1; return a*power(a,b-1);}
+int main(){ int a,b; cin>>a>>b; cout<<"Power: "<<power(a,b)<<endl; return 0;}`,
+                explanation: "Calculate x raised to the power y using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Prime Using Recursion": {
+                code: `#include<iostream>
+using namespace std;
+bool isPrime(int n,int i=2){ if(n<2) return false; if(i*i>n) return true; if(n%i==0) return false; return isPrime(n,i+1);}
+int main(){ int n; cin>>n; if(isPrime(n)) cout<<"Prime"<<endl; else cout<<"Not Prime"<<endl; return 0;}`,
+                explanation: "Determine if a number is prime by checking divisibility recursively.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Display Prime Numbers Recursively": {
+                code: `#include<iostream>
+using namespace std;
+bool isPrime(int n,int i=2){ if(n<2) return false; if(i*i>n) return true; if(n%i==0) return false; return isPrime(n,i+1);}
+void printPrimes(int n){ if(n<=0) return; printPrimes(n-1); if(isPrime(n)) cout<<n<<" ";}
+int main(){ int n; cin>>n; printPrimes(n); return 0;}`,
+                explanation: "Display all prime numbers within a range using recursion.",
+                difficulty: "hard",
+                category: "recursion"
+            },
+            "Fibonacci Using Memoization": {
+                code: `#include<iostream>
+using namespace std;
+long long fib[1000];
+long long fibonacci(int n){ if(n<=1) return n; if(fib[n]!=-1) return fib[n]; return fib[n]=fibonacci(n-1)+fibonacci(n-2);}
+int main(){ int n; cin>>n; for(int i=0;i<1000;i++) fib[i]=-1; cout<<fibonacci(n)<<endl; return 0;}`,
+                explanation: "Generate Fibonacci numbers efficiently using memoization to store previous results.",
+                difficulty: "hard",
+                category: "recursion"
+            },
+            "Check Happy Number Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int sumSquares(int n){ if(n==0) return 0; return (n%10)*(n%10)+sumSquares(n/10);}
+bool isHappy(int n){ if(n==1) return true; if(n==4) return false; return isHappy(sumSquares(n));}
+int main(){ int n; cin>>n; if(isHappy(n)) cout<<"Happy"<<endl; else cout<<"Not Happy"<<endl; return 0;}`,
+                explanation: "Check if a number leads to 1 after repeatedly summing the squares of its digits.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Duck Number Recursively": {
+                code: `#include<iostream>
+using namespace std;
+bool isDuck(int n){ if(n==0) return false; if(n%10==0) return true; return isDuck(n/10);}
+int main(){ int n; cin>>n; if(isDuck(n)) cout<<"Duck Number"<<endl; else cout<<"Not Duck Number"<<endl; return 0;}`,
+                explanation: "Check if a number contains zero but does not start with zero using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Kaprekar Numbers in Range": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+bool isKaprekar(int n){ long long sq=(long long)n*n; string s=to_string(sq); int sum=0; int mid=s.size()/2; sum=stoi(s.substr(0,mid))+stoi(s.substr(mid)); return sum==n;}
+int main(){ int low,high; cin>>low>>high; for(int i=low;i<=high;i++) if(isKaprekar(i)) cout<<i<<" "; return 0;}`,
+                explanation: "Find all Kaprekar numbers in a range where the square of the number can be split into parts that sum to the original number.",
+                difficulty: "hard",
+                category: "number"
+            },
+            "Magic Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+bool isMagic(int n){ int sum=0; while(n){ sum+=n%10; n/=10;} if(sum>9) return isMagic(sum); return sum==1;}
+int main(){ int low,high; cin>>low>>high; for(int i=low;i<=high;i++) if(isMagic(i)) cout<<i<<" "; return 0;}`,
+                explanation: "Find numbers whose repeated sum of digits becomes 1.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Neon Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+int sumDigits(int n){ if(n==0) return 0; return n%10+sumDigits(n/10);}
+int main(){ int low,high; cin>>low>>high; for(int i=low;i<=high;i++){ int sq=i*i; if(sumDigits(sq)==i) cout<<i<<" ";} return 0;}`,
+                explanation: "Find numbers where the sum of digits of the square equals the number itself.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Check Automorphic Recursively": {
+                code: `#include<iostream>
+using namespace std;
+bool isAutomorphic(int n,int sq){ if(n==0) return true; if(n%10!=sq%10) return false; return isAutomorphic(n/10,sq/10);}
+int main(){ int n; cin>>n; int sq=n*n; if(isAutomorphic(n,sq)) cout<<"Automorphic"<<endl; else cout<<"Not Automorphic"<<endl; return 0;}`,
+                explanation: "Check if a number's square ends with the same digits as the number itself recursively.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Sum of Factors Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int sumFactors(int n,int i=1){ if(i>n) return 0; return (n%i==0?i:0)+sumFactors(n,i+1);}
+int main(){ int n; cin>>n; cout<<"Sum of factors: "<<sumFactors(n)<<endl; return 0;}`,
+                explanation: "Find the sum of all factors of a number using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Abundant Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int sumFactors(int n,int i=1){ if(i>=n) return 0; return (n%i==0?i:0)+sumFactors(n,i+1);}
+int main(){ int n; cin>>n; if(sumFactors(n)>n) cout<<"Abundant"<<endl; else cout<<"Not Abundant"<<endl; return 0;}`,
+                explanation: "Check if the sum of proper divisors of a number is greater than the number.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Deficient Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int sumFactors(int n,int i=1){ if(i>=n) return 0; return (n%i==0?i:0)+sumFactors(n,i+1);}
+int main(){ int n; cin>>n; if(sumFactors(n)<n) cout<<"Deficient"<<endl; else cout<<"Not Deficient"<<endl; return 0;}`,
+                explanation: "Check if the sum of proper divisors of a number is less than the number.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Strong Number Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int factorial(int n){ if(n<=1) return 1; return n*factorial(n-1);}
+int sumFactDigits(int n){ if(n==0) return 0; return factorial(n%10)+sumFactDigits(n/10);}
+int main(){ int n; cin>>n; if(sumFactDigits(n)==n) cout<<"Strong Number"<<endl; else cout<<"Not Strong Number"<<endl; return 0;}`,
+                explanation: "Check if the sum of factorials of digits equals the number recursively.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Display Factorial Series": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ long long f=1; for(int j=1;j<=i;j++) f*=j; cout<<f<<" ";} return 0;}`,
+                explanation: "Display the factorial values of numbers from 1 to N.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Sum of Factorials in Range": {
+                code: `#include<iostream>
+using namespace std;
+long long factorial(int n){ if(n<=1) return 1; return n*factorial(n-1);}
+int main(){ int low,high; cin>>low>>high; long long sum=0; for(int i=low;i<=high;i++) sum+=factorial(i); cout<<sum<<endl; return 0;}`,
+                explanation: "Find the sum of factorials of all numbers within a given range.",
+                difficulty: "medium",
+                category: "math"
+            },
+            "Display Fibonacci Series in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; long long a=0,b=1; cout<<a<<" "<<b<<" "; for(int i=3;i<=n;i++){ long long c=a+b; cout<<c<<" "; a=b; b=c;} return 0;}`,
+                explanation: "Display all Fibonacci numbers within a given range.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Check Buzz Numbers Recursively": {
+                code: `#include<iostream>
+using namespace std;
+bool isBuzz(int n){ if(n==0) return false; if(n%10==7 || n%7==0) return true; return false;}
+int main(){ int n; cin>>n; if(isBuzz(n)) cout<<"Buzz Number"<<endl; else cout<<"Not Buzz Number"<<endl; return 0;}`,
+                explanation: "Check if a number ends with 7 or is divisible by 7 using recursion.",
+                difficulty: "easy",
+                category: "recursion"
+            },
+            "Check Sunny Numbers Recursively": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+bool isSunny(int n){ int root=sqrt(n+1); return root*root==(n+1);}
+int main(){ int n; cin>>n; if(isSunny(n)) cout<<"Sunny Number"<<endl; else cout<<"Not Sunny Number"<<endl; return 0;}`,
+                explanation: "Check if a number + 1 is a perfect square recursively.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Evil Numbers Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int countOnes(int n){ if(n==0) return 0; return (n%2)+countOnes(n/2);}
+int main(){ int n; cin>>n; if(countOnes(n)%2==0) cout<<"Evil Number"<<endl; else cout<<"Not Evil Number"<<endl; return 0;}`,
+                explanation: "Check if the binary form of a number contains even number of 1s using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Check Armstrong Using Function": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+bool isArmstrong(int n){ int sum=0,temp=n; int digits=log10(n)+1; while(temp){ sum+=pow(temp%10,digits); temp/=10;} return sum==n;}
+int main(){ int n; cin>>n; if(isArmstrong(n)) cout<<"Armstrong"<<endl; else cout<<"Not Armstrong"<<endl; return 0;}`,
+                explanation: "Use a function to check whether a number is an Armstrong number.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Check Disarium Using Function": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+bool isDisarium(int n){ int sum=0,temp=n; int digits=log10(n)+1; for(int i=digits;i>=1;i--){ int digit=temp%10; sum+=pow(digit,i); temp/=10;} return sum==n;}
+int main(){ int n; cin>>n; if(isDisarium(n)) cout<<"Disarium"<<endl; else cout<<"Not Disarium"<<endl; return 0;}`,
+                explanation: "Use a function to check whether a number is Disarium (sum of digits powered by their positions).",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Check Palindrome Using Function": {
+                code: `#include<iostream>
+using namespace std;
+bool isPalindrome(int n){ int rev=0,temp=n; while(temp){ rev=rev*10+temp%10; temp/=10;} return n==rev;}
+int main(){ int n; cin>>n; if(isPalindrome(n)) cout<<"Palindrome"<<endl; else cout<<"Not Palindrome"<<endl; return 0;}`,
+                explanation: "Use a function to check if a number is a palindrome.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Swap Variables Without Temp": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int a,b; cin>>a>>b; a=a+b; b=a-b; a=a-b; cout<<"a="<<a<<" b="<<b<<endl; return 0;}`,
+                explanation: "Swap two variables using arithmetic operations without a temporary variable.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Temperature Conversion Using Function": {
+                code: `#include<iostream>
+using namespace std;
+float cToF(float c){ return c*9/5+32;}
+float fToC(float f){ return (f-32)*5/9;}
+int main(){ float c,f; cin>>c; cin>>f; cout<<"C to F: "<<cToF(c)<<endl; cout<<"F to C: "<<fToC(f)<<endl; return 0;}`,
+                explanation: "Convert temperature between Celsius and Fahrenheit using functions.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Area of Circle Using Function": {
+                code: `#include<iostream>
+using namespace std;
+const float pi=3.14159;
+float areaCircle(float r){ return pi*r*r;}
+int main(){ float r; cin>>r; cout<<"Area: "<<areaCircle(r)<<endl; return 0;}`,
+                explanation: "Calculate and return the area of a circle using a function.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Area of Triangle Using Function": {
+                code: `#include<iostream>
+using namespace std;
+float areaTriangle(float b,float h){ return 0.5*b*h;}
+int main(){ float b,h; cin>>b>>h; cout<<"Area: "<<areaTriangle(b,h)<<endl; return 0;}`,
+                explanation: "Calculate the area of a triangle using a function and user input values.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Area of Rectangle Using Function": {
+                code: `#include<iostream>
+using namespace std;
+float areaRectangle(float l,float w){ return l*w;}
+int main(){ float l,w; cin>>l>>w; cout<<"Area: "<<areaRectangle(l,w)<<endl; return 0;}`,
+                explanation: "Find the area of a rectangle using a function.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Volume of Sphere Using Function": {
+                code: `#include<iostream>
+using namespace std;
+const float pi=3.14159;
+float volumeSphere(float r){ return 4.0/3*pi*r*r*r;}
+int main(){ float r; cin>>r; cout<<"Volume: "<<volumeSphere(r)<<endl; return 0;}`,
+                explanation: "Calculate the volume of a sphere using a function.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Volume of Cylinder Using Function": {
+                code: `#include<iostream>
+using namespace std;
+const float pi=3.14159;
+float volumeCylinder(float r,float h){ return pi*r*r*h;}
+int main(){ float r,h; cin>>r>>h; cout<<"Volume: "<<volumeCylinder(r,h)<<endl; return 0;}`,
+                explanation: "Find the volume of a cylinder using a function.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Find Maximum of Three Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int maxOfThree(int a,int b,int c){ return (a>b?(a>c?a:c):(b>c?b:c));}
+int main(){ int a,b,c; cin>>a>>b>>c; cout<<"Max: "<<maxOfThree(a,b,c)<<endl; return 0;}`,
+                explanation: "Find the largest of three numbers using a function.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Find Minimum of Three Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int minOfThree(int a,int b,int c){ return (a<b?(a<c?a:c):(b<c?b:c));}
+int main(){ int a,b,c; cin>>a>>b>>c; cout<<"Min: "<<minOfThree(a,b,c)<<endl; return 0;}`,
+                explanation: "Find the smallest of three numbers using a function.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Check Vowel Using Function": {
+                code: `#include<iostream>
+using namespace std;
+bool isVowel(char c){ c=tolower(c); return (c=='a'||c=='e'||c=='i'||c=='o'||c=='u');}
+int main(){ char c; cin>>c; if(isVowel(c)) cout<<"Vowel"<<endl; else cout<<"Not Vowel"<<endl; return 0;}`,
+                explanation: "Check whether a character is a vowel using a function.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Check Consonant Using Function": {
+                code: `#include<iostream>
+using namespace std;
+bool isConsonant(char c){ c=tolower(c); return (c>='a'&&c<='z'&&!string("aeiou").contains(c));}
+int main(){ char c; cin>>c; if(isConsonant(c)) cout<<"Consonant"<<endl; else cout<<"Not Consonant"<<endl; return 0;}`,
+                explanation: "Check whether a character is a consonant using a function.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Find ASCII Value Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int asciiValue(char c){ return int(c);}
+int main(){ char c; cin>>c; cout<<"ASCII: "<<asciiValue(c)<<endl; return 0;}`,
+                explanation: "Find and display the ASCII value of a given character using a function.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Sum of Digits Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int sumDigits(int n){ if(n==0) return 0; return n%10+sumDigits(n/10);}
+int main(){ int n; cin>>n; cout<<"Sum: "<<sumDigits(n)<<endl; return 0;}`,
+                explanation: "Find the sum of digits of a number using a function.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Reverse Number Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int reverseNum(int n,int rev=0){ if(n==0) return rev; return reverseNum(n/10,rev*10+n%10);}
+int main(){ int n; cin>>n; cout<<"Reversed: "<<reverseNum(n)<<endl; return 0;}`,
+                explanation: "Reverse a number using a user-defined function.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Sum of Array Elements Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int sumArray(int arr[],int n){ if(n==0) return 0; return arr[n-1]+sumArray(arr,n-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cout<<"Sum: "<<sumArray(arr,n)<<endl; return 0;}`,
+                explanation: "Find the sum of all array elements using a function.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Multiply Array Elements Using Function": {
+                code: `#include<iostream>
+using namespace std;
+int multiplyArray(int arr[],int n){ if(n==0) return 1; return arr[n-1]*multiplyArray(arr,n-1);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cout<<"Product: "<<multiplyArray(arr,n)<<endl; return 0;}`,
+                explanation: "Multiply all array elements using a function.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Check Prime in Array": {
+                code: `#include<iostream>
+using namespace std;
+bool isPrime(int n){ if(n<2) return false; for(int i=2;i*i<=n;i++) if(n%i==0) return false; return true;}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=0;i<n;i++) if(isPrime(arr[i])) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Check which elements of an array are prime numbers.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Check Armstrong in Array": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+bool isArmstrong(int n){ int sum=0,temp=n,digits=log10(n)+1; while(temp){ sum+=pow(temp%10,digits); temp/=10;} return sum==n;}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=0;i<n;i++) if(isArmstrong(arr[i])) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Check which array elements are Armstrong numbers.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Check Perfect Number in Array": {
+                code: `#include<iostream>
+using namespace std;
+int sumFactors(int n){ int sum=0; for(int i=1;i<n;i++) if(n%i==0) sum+=i; return sum;}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=0;i<n;i++) if(arr[i]==sumFactors(arr[i])) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Identify all perfect numbers present in an array.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Check Strong Number in Array": {
+                code: `#include<iostream>
+using namespace std;
+int factorial(int n){ if(n<=1) return 1; return n*factorial(n-1);}
+int sumFactDigits(int n){ if(n==0) return 0; return factorial(n%10)+sumFactDigits(n/10);}
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=0;i<n;i++) if(sumFactDigits(arr[i])==arr[i]) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Identify all strong numbers present in an array.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Sort Array Using Bubble Sort": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=0;i<n-1;i++) for(int j=0;j<n-i-1;j++) if(arr[j]>arr[j+1]) swap(arr[j],arr[j+1]); for(int i=0;i<n;i++) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Sort array elements in ascending order using the bubble sort algorithm.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Sort Array Using Selection Sort": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=0;i<n-1;i++){ int minIdx=i; for(int j=i+1;j<n;j++) if(arr[j]<arr[minIdx]) minIdx=j; swap(arr[i],arr[minIdx]); } for(int i=0;i<n;i++) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Sort array elements in ascending order using selection sort.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Sort Array Using Insertion Sort": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; for(int i=1;i<n;i++){ int key=arr[i], j=i-1; while(j>=0 && arr[j]>key){ arr[j+1]=arr[j]; j--; } arr[j+1]=key; } for(int i=0;i<n;i++) cout<<arr[i]<<" "; return 0;}`,
+                explanation: "Sort array elements using insertion sort technique.",
+                difficulty: "medium",
+                category: "array"
+            },
+            "Linear Search Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int linearSearch(int arr[],int n,int key,int idx=0){ if(idx==n) return -1; if(arr[idx]==key) return idx; return linearSearch(arr,n,key,idx+1);}
+int main(){ int n,key; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cin>>key; int res=linearSearch(arr,n,key); if(res!=-1) cout<<"Found at index "<<res<<endl; else cout<<"Not Found"<<endl; return 0;}`,
+                explanation: "Search for an element in an array recursively using linear search.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Binary Search Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int binarySearch(int arr[],int l,int r,int key){ if(l>r) return -1; int mid=l+(r-l)/2; if(arr[mid]==key) return mid; else if(arr[mid]<key) return binarySearch(arr,mid+1,r,key); else return binarySearch(arr,l,mid-1,key);}
+int main(){ int n,key; cin>>n; int arr[n]; for(int i=0;i<n;i++) cin>>arr[i]; cin>>key; int res=binarySearch(arr,0,n-1,key); if(res!=-1) cout<<"Found at index "<<res<<endl; else cout<<"Not Found"<<endl; return 0;}`,
+                explanation: "Find an element in a sorted array using recursive binary search.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Transpose Matrix Recursively": {
+                code: `#include<iostream>
+using namespace std;
+void transpose(int mat[10][10],int res[10][10],int i,int j,int r,int c){ if(i>=r) return; if(j<c){ res[j][i]=mat[i][j]; transpose(mat,res,i,j+1,r,c); } else transpose(mat,res,i+1,0,r,c);}
+int main(){ int r,c; cin>>r>>c; int mat[10][10],res[10][10]; for(int i=0;i<r;i++) for(int j=0;j<c;j++) cin>>mat[i][j]; transpose(mat,res,0,0,r,c); for(int i=0;i<c;i++){ for(int j=0;j<r;j++) cout<<res[i][j]<<" "; cout<<endl; } return 0;}`,
+                explanation: "Find the transpose of a matrix using recursion.",
+                difficulty: "hard",
+                category: "recursion"
+            },
+            "Matrix Diagonal Sum": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int mat[n][n]; for(int i=0;i<n;i++) for(int j=0;j<n;j++) cin>>mat[i][j]; int sum=0; for(int i=0;i<n;i++) sum+=mat[i][i]; cout<<sum<<endl; return 0;}`,
+                explanation: "Find the sum of diagonal elements of a matrix.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Check Identity Matrix": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; int mat[n][n]; bool isIdentity=true; for(int i=0;i<n;i++) for(int j=0;j<n;j++){ cin>>mat[i][j]; if((i==j && mat[i][j]!=1)||(i!=j && mat[i][j]!=0)) isIdentity=false; } if(isIdentity) cout<<"Identity Matrix"<<endl; else cout<<"Not Identity"<<endl; return 0;}`,
+                explanation: "Check whether the given matrix is an identity matrix.",
+                difficulty: "easy",
+                category: "array"
+            },
+            "Check Uppercase in String": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ string s; cin>>s; for(char c:s) if(isupper(c)) cout<<c; cout<<endl; return 0;}`,
+                explanation: "Check if a string contains uppercase letters.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Check Lowercase in String": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ string s; cin>>s; for(char c:s) if(islower(c)) cout<<c; cout<<endl; return 0;}`,
+                explanation: "Check if a string contains lowercase letters.",
+                difficulty: "easy",
+                category: "string"
+            },
+            "Convert String to Uppercase Recursively": {
+                code: `#include<iostream>
+using namespace std;
+void toUpper(string &s,int i=0){ if(i>=s.size()) return; if(islower(s[i])) s[i]=toupper(s[i]); toUpper(s,i+1);}
+int main(){ string s; cin>>s; toUpper(s); cout<<s<<endl; return 0;}`,
+                explanation: "Convert all lowercase letters of a string to uppercase using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Convert String to Lowercase Recursively": {
+                code: `#include<iostream>
+using namespace std;
+void toLower(string &s,int i=0){ if(i>=s.size()) return; if(isupper(s[i])) s[i]=tolower(s[i]); toLower(s,i+1);}
+int main(){ string s; cin>>s; toLower(s); cout<<s<<endl; return 0;}`,
+                explanation: "Convert all uppercase letters of a string to lowercase using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Count Words in String Recursively": {
+                code: `#include<iostream>
+using namespace std;
+int countWords(string s,int i=0,int count=0){ if(i>=s.size()) return count+1; if(s[i]==' ' && s[i+1]!=' ' && s[i+1]!='\0') count++; return countWords(s,i+1,count);}
+int main(){ string s; getline(cin,s); cout<<"Words: "<<countWords(s)<<endl; return 0;}`,
+                explanation: "Count total words in a sentence using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Remove Spaces Recursively": {
+                code: `#include<iostream>
+using namespace std;
+void removeSpaces(string &s,int i=0){ if(i>=s.size()) return; if(s[i]==' ') s.erase(i,1); removeSpaces(s,i+1);}
+int main(){ string s; getline(cin,s); removeSpaces(s); cout<<s<<endl; return 0;}`,
+                explanation: "Remove all space characters from a string using recursion.",
+                difficulty: "medium",
+                category: "recursion"
+            },
+            "Display Patterns Using Loops": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=1;j<=i;j++) cout<<"* "; cout<<endl; } return 0;}`,
+                explanation: "Display multiple star or number patterns using loops.",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Display Number Patterns": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=1;j<=i;j++) cout<<j<<" "; cout<<endl; } return 0;}`,
+                explanation: "Print different number-based patterns using nested loops.",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Display Star Patterns": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=1;j<=i;j++) cout<<"*"; cout<<endl; } return 0;}`,
+                explanation: "Print various star shapes using loops.",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Pyramid Pattern": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=i;j<n;j++) cout<<" "; for(int j=1;j<=2*i-1;j++) cout<<"*"; cout<<endl;} return 0;}`,
+                explanation: "Display a pyramid-shaped star pattern using nested loops.",
+                difficulty: "medium",
+                category: "pattern"
+            },
+            "Inverted Pyramid Pattern": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=n;i>=1;i--){ for(int j=n;j>i;j--) cout<<" "; for(int j=1;j<=2*i-1;j++) cout<<"*"; cout<<endl; } return 0;}`,
+                explanation: "Display an upside-down pyramid pattern of stars or numbers.",
+                difficulty: "medium",
+                category: "pattern"
+            },
+            "Diamond Star Pattern": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=i;j<n;j++) cout<<" "; for(int j=1;j<=2*i-1;j++) cout<<"*"; cout<<endl;} for(int i=n-1;i>=1;i--){ for(int j=n;j>i;j--) cout<<" "; for(int j=1;j<=2*i-1;j++) cout<<"*"; cout<<endl;} return 0;}`,
+                explanation: "Print a diamond-shaped star pattern.",
+                difficulty: "hard",
+                category: "pattern"
+            },
+            "Triangle Number Pattern": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=1;j<=i;j++) cout<<i<<" "; cout<<endl;} return 0;}`,
+                explanation: "Print a right-angle triangle pattern made of numbers.",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Right Angle Triangle Pattern": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int n; cin>>n; for(int i=1;i<=n;i++){ for(int j=1;j<=i;j++) cout<<"* "; cout<<endl;} return 0;}`,
+                explanation: "Display a right-angle triangle made of stars or numbers.",
+                difficulty: "easy",
+                category: "pattern"
+            },
+            "Check Palindrome Sentence": {
+                code: `#include<iostream>
+#include<string>
+using namespace std;
+bool isPalindrome(string s){ string t=""; for(char c:s) if(isalpha(c)) t+=tolower(c); string rev=t; reverse(rev.begin(),rev.end()); return t==rev;}
+int main(){ string s; getline(cin,s); if(isPalindrome(s)) cout<<"Palindrome"<<endl; else cout<<"Not Palindrome"<<endl; return 0;}`,
+                explanation: "Check if an entire sentence is a palindrome, ignoring spaces and punctuation.",
+                difficulty: "medium",
+                category: "string"
+            },
+            "Check Anagram Sentence": {
+                code: `#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+bool isAnagram(string s1,string s2){ string t1="",t2=""; for(char c:s1) if(isalpha(c)) t1+=tolower(c); for(char c:s2) if(isalpha(c)) t2+=tolower(c); sort(t1.begin(),t1.end()); sort(t2.begin(),t2.end()); return t1==t2;}
+int main(){ string s1,s2; getline(cin,s1); getline(cin,s2); if(isAnagram(s1,s2)) cout<<"Anagram"<<endl; else cout<<"Not Anagram"<<endl; return 0;}`,
+                explanation: "Check if two sentences are anagrams of each other ignoring spaces and case.",
+                difficulty: "medium",
+                category: "string"
+            },
+            "Sum of Prime Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+bool isPrime(int n){ if(n<2) return false; for(int i=2;i*i<=n;i++) if(n%i==0) return false; return true;}
+int main(){ int l,r; cin>>l>>r; int sum=0; for(int i=l;i<=r;i++) if(isPrime(i)) sum+=i; cout<<sum<<endl; return 0;}`,
+                explanation: "Find the sum of all prime numbers between two given limits.",
+                difficulty: "medium",
+                category: "number"
+            },
+            "Sum of Even Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int l,r; cin>>l>>r; int sum=0; for(int i=l;i<=r;i++) if(i%2==0) sum+=i; cout<<sum<<endl; return 0;}`,
+                explanation: "Add all even numbers between two given limits.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Sum of Odd Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int l,r; cin>>l>>r; int sum=0; for(int i=l;i<=r;i++) if(i%2!=0) sum+=i; cout<<sum<<endl; return 0;}`,
+                explanation: "Add all odd numbers between two given limits.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Print Odd Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int l,r; cin>>l>>r; for(int i=l;i<=r;i++) if(i%2!=0) cout<<i<<" "; return 0;}`,
+                explanation: "Display all odd numbers within the given range.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Print Even Numbers in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int l,r; cin>>l>>r; for(int i=l;i<=r;i++) if(i%2==0) cout<<i<<" "; return 0;}`,
+                explanation: "Display all even numbers within the given range.",
+                difficulty: "easy",
+                category: "number"
+            },
+            "Sum of Squares in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int l,r; cin>>l>>r; int sum=0; for(int i=l;i<=r;i++) sum+=i*i; cout<<sum<<endl; return 0;}`,
+                explanation: "Find the sum of squares of all numbers within a given range.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Sum of Cubes in Range": {
+                code: `#include<iostream>
+using namespace std;
+int main(){ int l,r; cin>>l>>r; int sum=0; for(int i=l;i<=r;i++) sum+=i*i*i; cout<<sum<<endl; return 0;}`,
+                explanation: "Find the sum of cubes of all numbers within a given range.",
+                difficulty: "easy",
+                category: "math"
+            },
+            "Check Armstrong in Range Recursively": {
+                code: `#include<iostream>
+#include<cmath>
+using namespace std;
+bool isArmstrong(int n){ int sum=0,temp=n; int digits=log10(n)+1; while(temp){ sum+=pow(temp%10,digits); temp/=10;} return sum==n;}
+void checkRange(int l,int r){ if(l>r) return; if(isArmstrong(l)) cout<<l<<" "; checkRange(l+1,r);}
+int main(){ int l,r; cin>>l>>r; checkRange(l,r); return 0;}`,
+                explanation: "Check and display all Armstrong numbers within a given range using recursion.",
+                difficulty: "hard",
+                category: "recursion"
+            }
+        };
+
+        // Pagination variables
+        const solutionsPerPage = 6;
+        let currentPage = 1;
+        let filteredSolutions = Object.entries(solutions);
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            displaySolutions();
+            setupPagination();
+            setupTheme();
+            document.getElementById('searchInput').focus();
+        });
+
+        // Display solutions for current page
+        function displaySolutions() {
+            const container = document.getElementById('solutionsList');
+            const startIndex = (currentPage - 1) * solutionsPerPage;
+            const endIndex = startIndex + solutionsPerPage;
+            const currentSolutions = filteredSolutions.slice(startIndex, endIndex);
+
+            container.innerHTML = '';
+
+            currentSolutions.forEach(([problemName, solution], index) => {
+                const globalIndex = startIndex + index + 1;
+                const card = document.createElement('div');
+                card.className = 'solution-card';
+                
+                card.innerHTML = `
+                    <div class="solution-header">
+                        <div class="problem-info">
+                            <div class="problem-number">Solution #${globalIndex}</div>
+                            <h3>${problemName}</h3>
+                        </div>
+                        <span class="difficulty-badge ${solution.difficulty}">
+                            ${solution.difficulty.charAt(0).toUpperCase() + solution.difficulty.slice(1)}
+                        </span>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                        <p>${solution.explanation}</p>
+                    </div>
+                    
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <span>C++ Solution</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre><code class="code-line">${formatCode(solution.code)}</code></pre>
+                    </div>
+                    
+                    <div class="solution-actions">
+                        <button class="btn btn-primary" onclick="runCode('${problemName}')">
+                            <i class="fas fa-play"></i> Run Code
+                        </button>
+                        <button class="btn btn-secondary" onclick="practiceProblem('${problemName}')">
+                            <i class="fas fa-edit"></i> Try Yourself
+                        </button>
+                        <button class="btn btn-outline" onclick="shareSolution('${problemName}')">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            noResults.style.display = filteredSolutions.length === 0 ? 'block' : 'none';
+        }
+
+        // Format code for better display
+        function formatCode(code) {
+            return code
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/#include/g, '<span class="code-keyword">#include</span>')
+                .replace(/\busing\b/g, '<span class="code-keyword">using</span>')
+                .replace(/\bnamespace\b/g, '<span class="code-keyword">namespace</span>')
+                .replace(/\bint\b/g, '<span class="code-keyword">int</span>')
+                .replace(/\bmain\b/g, '<span class="code-function">main</span>')
+                .replace(/\bcout\b/g, '<span class="code-function">cout</span>')
+                .replace(/\bcin\b/g, '<span class="code-function">cin</span>')
+                .replace(/\breturn\b/g, '<span class="code-keyword">return</span>')
+                .replace(/\bif\b/g, '<span class="code-keyword">if</span>')
+                .replace(/\belse\b/g, '<span class="code-keyword">else</span>')
+                .replace(/\bfor\b/g, '<span class="code-keyword">for</span>')
+                .replace(/\bwhile\b/g, '<span class="code-keyword">while</span>')
+                .replace(/\bdo\b/g, '<span class="code-keyword">do</span>')
+                .replace(/\/\//g, '<span class="code-comment">//</span>');
+        }
+
+        // Setup pagination
+        function setupPagination() {
+            const pagination = document.getElementById('pagination');
+            const pageCount = Math.ceil(filteredSolutions.length / solutionsPerPage);
+            
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= pageCount; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    displaySolutions();
+                    setupPagination();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                pagination.appendChild(pageBtn);
+            }
+        }
+
+        // Search functionality
+        function searchSolutions() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            loadingSpinner.style.display = 'block';
+            
+            setTimeout(() => {
+                if (searchTerm === '') {
+                    filteredSolutions = Object.entries(solutions);
+                } else {
+                    filteredSolutions = Object.entries(solutions).filter(([problemName, solution]) => 
+                        problemName.toLowerCase().includes(searchTerm) ||
+                        solution.explanation.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                currentPage = 1;
+                displaySolutions();
+                setupPagination();
+                loadingSpinner.style.display = 'none';
+            }, 500);
+        }
+
+        // Filter solutions
+        function filterSolutions() {
+            const difficulty = document.getElementById('difficultyFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            
+            filteredSolutions = Object.entries(solutions).filter(([problemName, solution]) => {
+                let matchesDifficulty = true;
+                let matchesCategory = true;
+
+                // Difficulty filter
+                if (difficulty) {
+                    matchesDifficulty = solution.difficulty === difficulty;
+                }
+
+                // Category filter
+                if (category) {
+                    if (category === 'number') {
+                        matchesCategory = problemName.toLowerCase().includes('number');
+                    } else if (category === 'array') {
+                        matchesCategory = problemName.toLowerCase().includes('array');
+                    } else if (category === 'string') {
+                        matchesCategory = problemName.toLowerCase().includes('string');
+                    } else if (category === 'recursion') {
+                        matchesCategory = problemName.toLowerCase().includes('recursion') || 
+                                        solution.explanation.toLowerCase().includes('recursion');
+                    } else if (category === 'pattern') {
+                        matchesCategory = problemName.toLowerCase().includes('pattern');
+                    } else if (category === 'math') {
+                        matchesCategory = solution.category === 'math';
+                    }
+                }
+
+                return matchesDifficulty && matchesCategory;
+            });
+
+            currentPage = 1;
+            displaySolutions();
+            setupPagination();
+        }
+
+        // Copy code to clipboard
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-preview').querySelector('code');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent.replace(/<[^>]*>/g, '');
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Visual feedback
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 2000);
+        }
+
+        // Action functions
+        function runCode(problemName) {
+            alert(`Running code for: ${problemName}\n\nThis would execute the C++ code in a compiler.`);
+        }
+
+        function practiceProblem(problemName) {
+            alert(`Opening practice for: ${problemName}\n\nRedirecting to practice page...`);
+            // window.location.href = `practice.html?problem=${encodeURIComponent(problemName)}`;
+        }
+
+        function shareSolution(problemName) {
+            if (navigator.share) {
+                navigator.share({
+                    title: `${problemName} - C++ Solution`,
+                    text: `Check out this C++ solution for ${problemName} on CodeSharp!`,
+                    url: window.location.href
+                });
+            } else {
+                alert(`Share this solution: ${problemName}\n\nURL: ${window.location.href}`);
+            }
+        }
+
+        // Theme functionality
+        function setupTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'fas fa-sun';
+            }
+
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    themeIcon.className = 'fas fa-sun';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeIcon.className = 'fas fa-moon';
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        // Enter key support for search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchSolutions();
+            }
+        });
+    </script>
+</body>
+</html>

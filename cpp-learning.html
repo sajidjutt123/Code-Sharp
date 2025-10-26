@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn C++ Programming | CodeSharp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES === */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #f9fafb;
+            --bg-light: #ffffff;
+            --bg-light-secondary: #f8fafc;
+            --bg-dark: #0f172a;
+            --bg-dark-secondary: #1e293b;
+            --card-light: #ffffff;
+            --card-dark: #1e293b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* === BASE STYLES === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === NAVIGATION === */
+        .navbar {
+            background-color: var(--bg-light);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        body.dark-mode .navbar {
+            background-color: var(--bg-dark);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: inherit;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* === C++ LEARNING CONTENT === */
+        .learning-content {
+            padding: 80px 0;
+            background-color: var(--bg-light-secondary);
+        }
+
+        body.dark-mode .learning-content {
+            background-color: var(--bg-dark-secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Chapter Grid */
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .chapter-card {
+            background-color: var(--card-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        body.dark-mode .chapter-card {
+            background-color: var(--card-dark);
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .chapter-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .chapter-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .chapter-content {
+            padding: 2rem;
+        }
+
+        .chapter-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .lesson-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .lesson-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .lesson-list li {
+            border-bottom-color: #374151;
+        }
+
+        .lesson-list li:last-child {
+            border-bottom: none;
+        }
+
+        .lesson-list i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .lesson-list a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+            flex: 1;
+        }
+
+        .lesson-list a:hover {
+            color: var(--primary);
+        }
+
+        /* Code Examples */
+        .code-example {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-example .keyword {
+            color: #ff79c6;
+        }
+
+        .code-example .function {
+            color: #50fa7b;
+        }
+
+        .code-example .comment {
+            color: #6272a4;
+        }
+
+        .code-example .string {
+            color: #f1fa8c;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background-color: var(--card-light);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        body.dark-mode .progress-section {
+            background-color: var(--card-dark);
+        }
+
+        .progress-bar {
+            background-color: #e5e7eb;
+            border-radius: 10px;
+            height: 10px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        body.dark-mode .progress-bar {
+            background-color: #374151;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            height: 100%;
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 3rem 0 1rem;
+        }
+
+        body.dark-mode .footer {
+            background-color: var(--bg-dark);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .footer-bottom {
+            border-top-color: #374151;
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-code"></i>
+                    CodeSharp
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="solutions.html">Practice Problems</a>
+                    <a href="practice.html">Compiler</a>
+                    <a href="cpp-learning.html" class="active">Learn C++</a>
+                    <a href="html-learning.html">Learn HTML</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">contact</a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master C++ Programming</h1>
+                <p>From basic syntax to advanced concepts like OOP and Data Structures. Learn by doing with hands-on examples and projects.</p>
+                <div class="hero-buttons">
+                    <a href="#chapters" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Start Learning
+                    </a>
+                    <a href="practice.html" class="btn btn-secondary">
+                        <i class="fas fa-code"></i> Practice Problems
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Content -->
+    <section class="learning-content" id="chapters">
+        <div class="container">
+            <div class="section-title">
+                <h2>C++ Learning Path</h2>
+                <p>Follow this structured path to master C++ programming step by step. Complete each chapter to build your skills progressively.</p>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <h3>Your Learning Progress</h3>
+                <p>Track your journey to becoming a C++ expert</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">0% Complete</p>
+            </div>
+
+            <!-- Chapter Grid -->
+            <div class="chapter-grid">
+                <!-- Chapter 1 -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <div class="chapter-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h3>Chapter 1: Getting Started</h3>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Learn the basics of C++ and write your first program.</p>
+                        <ul class="lesson-list">
+                            <li><i class="fas fa-check-circle"></i> <a href="#">Introduction to C++</a></li>
+                            <li><i class="fas fa-check-circle"></i> <a href="#">Setting up Your Environment</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Your First C++ Program</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Basic Syntax and Structure</a></li>
+                        </ul>
+                        <div class="code-example">
+                            <span class="comment">// Your first C++ program</span><br>
+                            <span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span><br>
+                            <span class="keyword">using namespace</span> std;<br><br>
+                            <span class="keyword">int</span> <span class="function">main</span>() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;cout << <span class="string">"Hello, World!"</span> << endl;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> 0;<br>
+                            }
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            Start Chapter 1
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <div class="chapter-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Chapter 2: Variables & Data Types</h3>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Understand how to store and manipulate data in C++.</p>
+                        <ul class="lesson-list">
+                            <li><i class="far fa-circle"></i> <a href="#">Variables and Constants</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Primitive Data Types</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Type Modifiers</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">User Input and Output</a></li>
+                        </ul>
+                        <div class="code-example">
+                            <span class="keyword">int</span> age = 25;<br>
+                            <span class="keyword">double</span> salary = 50000.50;<br>
+                            <span class="keyword">char</span> grade = 'A';<br>
+                            <span class="keyword">string</span> name = <span class="string">"John"</span>;<br>
+                            <span class="keyword">bool</span> isStudent = <span class="keyword">true</span>;
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            Start Chapter 2
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <div class="chapter-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h3>Chapter 3: Control Flow</h3>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Learn to control the flow of your programs with conditions and loops.</p>
+                        <ul class="lesson-list">
+                            <li><i class="far fa-circle"></i> <a href="#">If-Else Statements</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Switch Case</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">For Loops</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">While and Do-While Loops</a></li>
+                        </ul>
+                        <div class="code-example">
+                            <span class="keyword">int</span> number = 10;<br>
+                            <span class="keyword">if</span> (number > 0) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;cout << <span class="string">"Positive"</span> << endl;<br>
+                            } <span class="keyword">else</span> {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;cout << <span class="string">"Non-positive"</span> << endl;<br>
+                            }
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            Start Chapter 3
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <div class="chapter-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Chapter 4: Functions</h3>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Organize your code with functions for better structure and reusability.</p>
+                        <ul class="lesson-list">
+                            <li><i class="far fa-circle"></i> <a href="#">Defining and Calling Functions</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Function Parameters</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Return Types</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Function Overloading</a></li>
+                        </ul>
+                        <div class="code-example">
+                            <span class="keyword">int</span> <span class="function">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> a + b;<br>
+                            }<br><br>
+                            <span class="comment">// Usage</span><br>
+                            <span class="keyword">int</span> result = <span class="function">add</span>(5, 3);
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            Start Chapter 4
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chapter 5 -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <div class="chapter-icon">
+                            <i class="fas fa-object-group"></i>
+                        </div>
+                        <h3>Chapter 5: Object-Oriented Programming</h3>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Master the concepts of OOP in C++ for building complex applications.</p>
+                        <ul class="lesson-list">
+                            <li><i class="far fa-circle"></i> <a href="#">Classes and Objects</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Constructors and Destructors</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Inheritance</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Polymorphism</a></li>
+                        </ul>
+                        <div class="code-example">
+                            <span class="keyword">class</span> Student {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span>:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">string</span> name;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span> age;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">void</span> <span class="function">display</span>();<br>
+                            };
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            Start Chapter 5
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chapter 6 -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <div class="chapter-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Chapter 6: Data Structures</h3>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Learn about essential data structures and algorithms in C++.</p>
+                        <ul class="lesson-list">
+                            <li><i class="far fa-circle"></i> <a href="#">Arrays and Vectors</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Strings</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Structures</a></li>
+                            <li><i class="far fa-circle"></i> <a href="#">Pointers</a></li>
+                        </ul>
+                        <div class="code-example">
+                            <span class="comment">// Array example</span><br>
+                            <span class="keyword">int</span> numbers[5] = {1, 2, 3, 4, 5};<br><br>
+                            <span class="comment">// Vector example</span><br>
+                            vector<<span class="keyword">int</span>> vec = {1, 2, 3};
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">
+                            Start Chapter 6
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CodeSharp</h3>
+                    <p>Master programming with comprehensive lessons and practice problems. Learn by doing with real coding challenges.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="practice.html">Practice Problems</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Learning Paths</h4>
+                    <ul>
+                        <li><a href="cpp-learning.html">C++ Programming</a></li>
+                        <li><a href="html-learning.html">HTML Learning</a></li>
+                        <li><a href="#">JavaScript Coming Soon</a></li>
+                        <li><a href="#">Python Coming Soon</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> juttboys4540@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +92 300 7193502</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Kasur, Pakistan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeSharp. All rights reserved.   ❤️FAST NUCES</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Check for saved theme or prefer color scheme
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        // Apply saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.className = 'fas fa-sun';
+        } else {
+            document.body.classList.remove('dark-mode');
+            themeIcon.className = 'fas fa-moon';
+        }
+
+        // Theme toggle function
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Progress tracking simulation
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            // Simulate progress (you can replace this with actual progress tracking)
+            let progress = 10; // 10% completed (2 lessons out of 20)
+            
+            setTimeout(() => {
+                progressFill.style.width = progress + '%';
+                progressText.textContent = progress + '% Complete';
+            }, 500);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
